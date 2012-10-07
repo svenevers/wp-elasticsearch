@@ -459,7 +459,6 @@ class Wp_Searchbox_IO {
             // If there is a template file then we use it
             if ( file_exists( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'search_result_page.php' ) ) {
                 // use plugin supplied file
-                add_action( 'wp_head', array( &$this, 'append_search_theme' ) );
                 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'search_result_page.php' );
             } else {
                 return;

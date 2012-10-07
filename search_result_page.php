@@ -66,6 +66,7 @@
         <ul>
             <?php foreach ( $elasticaFacets['tags']['terms'] as $elasticaFacet ) { ?>
             <li>
+                <input type="checkbox" name="facet-tag" value="<?php  echo $elasticaFacet['term']; ?>"/>
                 <a href="javascript:;" title="tags" class="facet-search-link" onclick="searchlink(this)" data="<?php  echo $elasticaFacet['term']; ?>"><?php  echo $elasticaFacet['term'] . "(" . $elasticaFacet['count'] . ")"; ?></a>
             </li>
             <?php } ?>
