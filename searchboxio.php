@@ -510,6 +510,7 @@ class Wp_Searchbox_IO {
         $model_post->documentType = ModelPost::$_TYPE;
         $model_post->documentPrefix = ModelPost::$_PREFIX;
         $model_post->serverUrl = get_option( 'searchbox_settings_server' );
+        $model_post->checkIndexExists();
         $model_post->index(true);
     }
 
