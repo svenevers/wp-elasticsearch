@@ -85,4 +85,29 @@ abstract class ModelBase {
         $elasticaType->delete();
         $elasticaType->getIndex()->refresh();
     }
+
+    /**
+     * Check index existance
+     */
+    public function checkIndexExists() {
+        $url = $this->serverUrl . ModelBase::$_INDEX;
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'HEAD');
+        $result = curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        return $http_status;
+    }
+
+    /**
+     * Create index with curl
+     */
+    public function createIndexName() {
+        $url = $this->serverUrl . ModelBase::$_INDEX;
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        $result = curl_exec($ch);
+        return $result;
+    }
 }

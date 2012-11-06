@@ -104,9 +104,9 @@ class Wp_Searchbox_IO {
 
         //configuration sections
         add_meta_box('searchbox_server_configuration_section', 'Server Configurations', array(&$this, 'on_server_conf'), $this->pagehook, 'normal', 'core');
+        add_meta_box('searchbox_indexing_operation_section', 'Indexing Operations', array(&$this, 'on_indexing_operations_conf'), $this->pagehook, 'normal', 'core');
         add_meta_box('searchbox_indexing_configuration_section', 'Indexing Configurations', array(&$this, 'on_indexing_conf'), $this->pagehook, 'normal', 'core');
         add_meta_box('searchbox_search_result_configuration_section', 'Search Result Configurations', array(&$this, 'on_search_result_conf'), $this->pagehook, 'normal', 'core');
-        add_meta_box('searchbox_indexing_operation_section', 'Indexing Operations', array(&$this, 'on_indexing_operations_conf'), $this->pagehook, 'normal', 'core');
     }
 
     //check permission and show admin panel option page
@@ -471,6 +471,11 @@ class Wp_Searchbox_IO {
      */
     function index_all_posts() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
+        $model_post = new ModelPost();
+        $model_post->serverUrl = get_option( 'searchbox_settings_server' );
+        if ($model_post->checkIndexExists() != 200) {
+            $model_post->createIndexName();
+        }
         //Default it gets last 5 posts, so give your parameters. Further detail here : http://codex.wordpress.org/Template_Tags/get_posts
         $args = array(
             'numberposts'     => 99999,
@@ -505,11 +510,10 @@ class Wp_Searchbox_IO {
                 'uri' => $url
             );
         }
-        $model_post = new ModelPost();
+
         $model_post->buildIndexDataBulk( $post_data );
         $model_post->documentType = ModelPost::$_TYPE;
         $model_post->documentPrefix = ModelPost::$_PREFIX;
-        $model_post->serverUrl = get_option( 'searchbox_settings_server' );
         $model_post->index(true);
     }
 
