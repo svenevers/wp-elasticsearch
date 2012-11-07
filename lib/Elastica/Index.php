@@ -238,7 +238,6 @@ class Elastica_Index implements Elastica_Searchable
     {
         $search = new Elastica_Search($this->getClient());
         $search->addIndex($this);
-
         return $search->search($query, $options);
     }
 

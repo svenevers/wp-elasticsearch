@@ -86,14 +86,68 @@ abstract class ModelBase {
         $elasticaType->getIndex()->refresh();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Check index existance
+     */
+>>>>>>> hotfix-elasticsearch
     public function checkIndexExists() {
         $url = $this->serverUrl . ModelBase::$_INDEX;
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'HEAD');
+<<<<<<< HEAD
 
         //execute post
         $result = curl_exec($ch);
         var_dump($result);
+=======
+        $result = curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        return $http_status;
+    }
+
+    /**
+     * Check index existance
+     */
+    public function checkServerStatus() {
+        $url = $this->serverUrl;
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $statusData = json_decode(curl_exec($ch), true);
+        curl_close ($ch);
+        return ($statusData['status'] == '200');
+    }
+
+    /**
+     * Create index with curl
+     */
+    public function createIndexName() {
+        $url = $this->serverUrl . ModelBase::$_INDEX;
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        $result = curl_exec($ch);
+        return $result;
+    }
+
+    /**
+     * Check index count
+     */
+    public function checkIndexCount() {
+        $url = $this->serverUrl . ModelBase::$_INDEX . '/_stats';
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $indexData = json_decode(curl_exec($ch), true);
+        curl_close ($ch);
+        return $indexData['_all']['primaries']['docs']['count'];
+>>>>>>> hotfix-elasticsearch
     }
 }

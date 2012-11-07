@@ -12,26 +12,16 @@
 class Wp_Searchbox_IO {
 
     //server settings
-    var $searchbox_api_key;
     var $searchbox_settings_server;
-    var $searchbox_setting_api_key_checkbox;
 
     //indexing settings
-    var $searchbox_index_pages;
-    var $searchbox_index_posts;
-    var $searchbox_index_comments;
-    var $searchbox_index_users;
-    var $searchbox_delete_page_on_remove;
     var $searchbox_delete_post_on_remove;
-    var $searchbox_delete_comment_on_remove;
-    var $searchbox_delete_user_on_remove;
-    var $searchbox_delete_page_on_unpublish;
     var $searchbox_delete_post_on_unpublish;
+    var $searchbox_settings_index_name;
 
     //search result settings
     var $searchbox_result_tags_facet;
     var $searchbox_result_category_facet;
-    var $searchbox_result_type_facet;
     var $searchbox_result_author_facet;
 
     //misc.
@@ -47,6 +37,7 @@ class Wp_Searchbox_IO {
         add_action( 'wp_ajax_searchbox_option_update', array( &$this, 'searchbox_option_update' ) );
         add_action( 'wp_ajax_searchbox_index_all_posts', array( &$this, 'searchbox_index_all_posts' ) );
         add_action( 'wp_ajax_searchbox_delete_all_posts', array( &$this, 'searchbox_delete_all_posts' ) );
+        add_action( 'wp_ajax_check_server_status', array( &$this, 'searchbox_check_server_status' ) );
         add_action( 'wp_print_styles', array( &$this, 'searchbox_theme_css' ) );
 
         //frontend hooks
@@ -55,26 +46,16 @@ class Wp_Searchbox_IO {
         add_action( 'template_redirect', array( &$this, 'search_term') );
 
         //server settings
-        $this->searchbox_api_key = get_option( "searchbox_api_key" );
-        $this->searchbox_setting_api_key_checkbox = get_option( "searchbox_setting_api_key_checkbox" );
         $this->searchbox_settings_server = get_option( "searchbox_settings_server" );
 
         //indexing settings
-        $this->searchbox_index_pages = get_option( "searchbox_index_pages" );
-        $this->searchbox_index_posts = get_option( "searchbox_index_posts" );
-        $this->searchbox_index_comments = get_option( "searchbox_index_comments" );
-        $this->searchbox_index_users = get_option( "searchbox_index_users" );
-        $this->searchbox_delete_page_on_remove = get_option( "searchbox_delete_page_on_remove" );
         $this->searchbox_delete_post_on_remove = get_option( "searchbox_delete_post_on_remove" );
-        $this->searchbox_delete_comment_on_remove = get_option( "searchbox_delete_comment_on_remove" );
-        $this->searchbox_delete_user_on_remove = get_option( "searchbox_delete_user_on_remove" );
-        $this->searchbox_delete_page_on_unpublish = get_option( "searchbox_delete_page_on_unpublish" );
         $this->searchbox_delete_post_on_unpublish = get_option( "searchbox_delete_post_on_unpublish" );
+        $this->searchbox_settings_index_name = get_option( "searchbox_settings_index_name" );
 
         //search result settings
         $this->searchbox_result_tags_facet = get_option( "searchbox_result_tags_facet" );
         $this->searchbox_result_category_facet = get_option( "searchbox_result_category_facet" );
-        $this->searchbox_result_type_facet = get_option( "searchbox_result_type_facet" );
         $this->searchbox_result_author_facet = get_option( "searchbox_result_author_facet" );
 
         //misc.
@@ -104,9 +85,9 @@ class Wp_Searchbox_IO {
 
         //configuration sections
         add_meta_box('searchbox_server_configuration_section', 'Server Configurations', array(&$this, 'on_server_conf'), $this->pagehook, 'normal', 'core');
+        add_meta_box('searchbox_indexing_operation_section', 'Indexing Operations', array(&$this, 'on_indexing_operations_conf'), $this->pagehook, 'normal', 'core');
         add_meta_box('searchbox_indexing_configuration_section', 'Indexing Configurations', array(&$this, 'on_indexing_conf'), $this->pagehook, 'normal', 'core');
         add_meta_box('searchbox_search_result_configuration_section', 'Search Result Configurations', array(&$this, 'on_search_result_conf'), $this->pagehook, 'normal', 'core');
-        add_meta_box('searchbox_indexing_operation_section', 'Indexing Operations', array(&$this, 'on_indexing_operations_conf'), $this->pagehook, 'normal', 'core');
     }
 
     //check permission and show admin panel option page
@@ -142,8 +123,13 @@ class Wp_Searchbox_IO {
         jQuery(document).ready( function($) {
             // close postboxes that should be closed
             $('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+            //Desired close sections
+            $('#searchbox_indexing_configuration_section').addClass('closed');
+            $('#searchbox_search_result_configuration_section').addClass('closed');
             // postboxes setup
             postboxes.add_postbox_toggles('<?php echo $this->pagehook; ?>');
+
+            checkServerStatusAjax(false);
         });
         var waitImg="<img src='/wp-admin/images/loading.gif'/>";
         var options = {
@@ -152,8 +138,14 @@ class Wp_Searchbox_IO {
             url:			ajaxurl
         };
         // bind to the form's submit event
-        jQuery('#searchbox_form_server_settings').submit(function(){
+        jQuery('#searchbox_form_server_settings').submit(function($){
+            var url = jQuery('#searchbox_settings_server').val();
+            var last_char = jQuery('#searchbox_settings_server').val().substr(jQuery('#searchbox_settings_server').val().length - 1);
+            if ( last_char != "/" ) {
+                url = jQuery('#searchbox_settings_server').val() + "/";
+            }
             jQuery(this).ajaxSubmit(options);
+            checkServerStatusAjax(url);
             return false;
         });
         jQuery('#searchbox_form_indexing_settings').submit(function(){
@@ -184,41 +176,35 @@ class Wp_Searchbox_IO {
             jQuery(this).ajaxSubmit(options);
             return false;
         });
-        jQuery('#searchbox_setting_api_key_checkbox').change( function() {
-            if(this.checked) {
-                jQuery('#searchbox_api_key').parent().show("fast");
-                jQuery('#searchbox_settings_server').val("<?php echo ModelBase::$_SEARCHBOX_URL . $this->searchbox_api_key; ?>");
-            } else {
-                jQuery('#searchbox_api_key').parent().hide("fast");
-                jQuery('#searchbox_settings_server').val("<?php echo $this->searchbox_settings_server; ?>");
-                jQuery('#searchbox_api_key').val("<?php echo $this->searchbox_api_key; ?>")
-            }
-        });
-        jQuery('#searchbox_api_key').keyup(function(){
-            jQuery('#searchbox_settings_server').val("<?php echo ModelBase::$_SEARCHBOX_URL; ?>" + jQuery('#searchbox_api_key').val() );
-            var last_char = jQuery('#searchbox_settings_server').val().substr(jQuery('#searchbox_settings_server').val().length - 1);
-            if ( last_char != "/" ) {
-                jQuery('#searchbox_settings_server').val(jQuery('#searchbox_settings_server').val() + "/" );
-            }
-
-        });
         jQuery('#searchbox_settings_server').blur(function(){
             var last_char = jQuery('#searchbox_settings_server').val().substr(jQuery('#searchbox_settings_server').val().length - 1);
             if ( last_char != "/" ) {
                 jQuery('#searchbox_settings_server').val(jQuery('#searchbox_settings_server').val() + "/" );
             }
         });
-        //options.success=refreshImage;
         // pre-submit callback
         function showWait(formData, jqForm, options){
             jqForm.children('#board').html("<div class='updated fade'>please wait... "+waitImg+"</div>");
-            //var queryString = jQuery.param(formData);
-            //alert('About to submit: \n\n' + queryString);
             return true;
         }
         // post-submit callback
         function showResponse(responseText, statusText, xhr, $form){
             $form.children('#board').html(responseText);
+        }
+
+        function checkServerStatusAjax(serverUrl){
+            var url = false;
+            if (serverUrl) {
+                url = serverUrl;
+            }
+            jQuery.post(ajaxurl, { action: "check_server_status", url: url },
+                    function(data) {
+                        if (data) {
+                            jQuery("#server-status-div").css({'background':'green'}).attr({'title':'Running'});
+                        } else {
+                            jQuery("#server-status-div").css({'background':'red'}).attr({'title':'Down'});
+                        }
+                    }, 'json');
         }
         //]]>
     </script><?php
@@ -274,31 +260,41 @@ class Wp_Searchbox_IO {
         echo $html;
     }
 
+    private function custom_status($status = 'red') {
+        if ($status) {
+            $background = 'green';
+            $title = 'Running';
+        } else {
+            $background = 'red';
+            $title = 'Down';
+        }
+        $html ='<div><span class="leftlabel">Server Status:</span> <div id="server-status-div" style="height: 20px; width: 20px; background: ' . $background . '; border-radius: 15px; position: absolute; left: 265px;" title="' . $title . '"></div></div><br/><br/><br/>';
+        echo $html;
+    }
+
+    private function custom_text($label, $text) {
+        $html ='<div><span class="leftlabel">' . $label . '</span> <div style="position: absolute; left: 265px;">' . $text . '</div></div><br/><br/><br/>';
+        echo $html;
+    }
+
     //server configuration section content
     function on_server_conf() {
+        require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
+        $model = new ModelPost();
+        $model->serverUrl = $this->searchbox_settings_server;
         $this->form_start('searchbox_form_server_settings');
-        $this->form_component( "I have searchbox.io api key ", "checkbox", "searchbox_setting_api_key_checkbox", $this->searchbox_setting_api_key_checkbox );
-        if ( $this->searchbox_setting_api_key_checkbox ) {
-            $this->form_component( "searchbox.io API key:", "text", "searchbox_api_key", $this->searchbox_api_key );
-        } else {
-            $this->form_component( "searchbox.io API key:", "text", "searchbox_api_key", $this->searchbox_api_key, true );
-        }
         $this->form_component( "Elasticsearch server:", "text", "searchbox_settings_server", $this->searchbox_settings_server );
+        $this->custom_status( true );
+        $this->custom_text( "Total Index Count:", "<b>" . $model->checkIndexCount() . "</b>" );
         $this->form_end();
     }
 
     //indexing configuration section content
     function on_indexing_conf() {
+        require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $this->form_start('searchbox_form_indexing_settings');
-        $this->form_component( "Index Pages: ", "checkbox", "searchbox_index_pages", $this->searchbox_index_pages );
-        $this->form_component( "Index Posts: ", "checkbox", "searchbox_index_posts", $this->searchbox_index_posts );
-        $this->form_component( "Index Comments: ", "checkbox", "searchbox_index_comments", $this->searchbox_index_comments );
-        $this->form_component( "Index Users: ", "checkbox", "searchbox_index_users", $this->searchbox_index_users );
-        $this->form_component( "Delete Page Index on Remove: ", "checkbox", "searchbox_delete_page_on_remove", $this->searchbox_delete_page_on_remove );
+        $this->form_component( "Default Post Index Name:", "text", "searchbox_settings_index_name", ( ( strlen( $this->searchbox_settings_index_name ) < 1 ) ? ModelPost::$_TYPE : $this->searchbox_settings_index_name ) );
         $this->form_component( "Delete Post Index on Remove: ", "checkbox", "searchbox_delete_post_on_remove", $this->searchbox_delete_post_on_remove );
-        $this->form_component( "Delete Comment Index on Remove: ", "checkbox", "searchbox_delete_comment_on_remove", $this->searchbox_delete_comment_on_remove );
-        $this->form_component( "Delete User Index on Remove: ", "checkbox", "searchbox_delete_user_on_remove", $this->searchbox_delete_user_on_remove );
-        $this->form_component( "Delete Page Index on Unpublish: ", "checkbox", "searchbox_delete_page_on_unpublish", $this->searchbox_delete_page_on_unpublish );
         $this->form_component( "Delete Post Index on Unpublish: ", "checkbox", "searchbox_delete_post_on_unpublish", $this->searchbox_delete_post_on_unpublish );
         $this->form_end();
     }
@@ -306,8 +302,8 @@ class Wp_Searchbox_IO {
     //search result configuration section content
     function on_search_result_conf() {
         $this->form_start('searchbox_form_search_result_settings');
-        $this->form_component( "Category Facet: ", "checkbox", "searchbox_result_tags_facet", $this->searchbox_result_tags_facet );
-        $this->form_component( "Tag Facet: ", "checkbox", "searchbox_result_category_facet", $this->searchbox_result_category_facet );
+        $this->form_component( "Category Facet: ", "checkbox", "searchbox_result_category_facet", $this->searchbox_result_category_facet );
+        $this->form_component( "Tag Facet: ", "checkbox", "searchbox_result_tags_facet", $this->searchbox_result_tags_facet );
         $this->form_component( "Author Facet: ", "checkbox", "searchbox_result_author_facet", $this->searchbox_result_author_facet );
         $this->form_end();
     }
@@ -315,34 +311,22 @@ class Wp_Searchbox_IO {
     //Some indexing operations on admin panel option page
     function on_indexing_operations_conf() {
         $this->custom_buttons( "searchbox_index_all_posts", "Index All Posts" );
-        $this->custom_buttons( "searchbox_index_all_pages", "Index All Pages" );
         $this->custom_buttons( "searchbox_index_optimize", "Optimize Index" );
-        $this->custom_buttons( "searchbox_delete_all_posts", "Delete Index" );
-        $this->custom_buttons( "searchbox_server_check", "Check Server Status" );
+        $this->custom_buttons( "searchbox_delete_all_posts", "Delete Documents" );
     }
 
     function searchbox_option_update() {
         $options['searchbox_form_server_settings'] = array(
-            'searchbox_api_key',
-            'searchbox_settings_server',
-            'searchbox_setting_api_key_checkbox'
+            'searchbox_settings_server'
         );
         $options['searchbox_form_indexing_settings'] = array(
-            'searchbox_index_pages',
-            'searchbox_index_posts',
-            'searchbox_index_comments',
-            'searchbox_index_users',
-            'searchbox_delete_page_on_remove',
             'searchbox_delete_post_on_remove',
-            'searchbox_delete_comment_on_remove',
-            'searchbox_delete_user_on_remove',
-            'searchbox_delete_page_on_unpublish',
-            'searchbox_delete_post_on_unpublish'
+            'searchbox_delete_post_on_unpublish',
+            'searchbox_settings_index_name'
         );
         $options['searchbox_form_search_result_settings'] = array(
             'searchbox_result_tags_facet',
             'searchbox_result_category_facet',
-            'searchbox_result_type_facet',
             'searchbox_result_author_facet'
         );
 
@@ -368,10 +352,11 @@ class Wp_Searchbox_IO {
      * Index all pages ajax
      */
     function searchbox_index_all_posts() {
+        $document_count = 0;
         if ( !empty( $_POST['action'] ) && $_POST['action'] == 'searchbox_index_all_posts' ) {
-            $this->index_all_posts();
+            $document_count = $this->index_all_posts();
         }
-        echo "<div class='updated fade'>" . __( 'Index All Post Operation Finished' ) . "</div>";
+        echo "<div class='updated fade'>" . __( 'Index All Post Operation Finished, ' . $document_count . ' document(s) sent to the Elasticsearch server' ) . "</div>";
         die;
     }
 
@@ -380,6 +365,22 @@ class Wp_Searchbox_IO {
             $this->delete_all_posts();
         }
         echo "<div class='updated fade'>" . __( 'Delete All Post Operation Finished' ) . "</div>";
+        die;
+    }
+
+    /**
+     * Check server status ajax
+     */
+    function searchbox_check_server_status() {
+        $ret = false;
+        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'check_server_status' ) {
+            if ( $_POST['url'] !== 'false' ) {
+                $ret = $this->check_server_status( $_POST['url'] );
+            } else {
+                $ret = $this->check_server_status( get_option( 'searchbox_settings_server' ) );
+            }
+        }
+        echo json_encode($ret);
         die;
     }
 
@@ -423,6 +424,7 @@ class Wp_Searchbox_IO {
             //get author info
             $user_info = get_userdata( $post->post_author );
             $model_post = new ModelPost($post, $tags, $url, $cats, $user_info->user_login, get_option( 'searchbox_settings_server' ) );
+            $model_post->documentType = get_option( 'searchbox_settings_index_name' );
             $model_post->index();
         }
     }
@@ -434,6 +436,7 @@ class Wp_Searchbox_IO {
     function delete_post( $post_id ) {
         if ( get_option( "searchbox_delete_post_on_remove" ) ) {
             $model_post = new ModelPost( null, null, null, null, null, get_option( 'searchbox_settings_server' ) );
+            $model_post->documentType = get_option( 'searchbox_settings_index_name' );
             $model_post->delete($post_id);
         }
     }
@@ -443,7 +446,7 @@ class Wp_Searchbox_IO {
      */
     function searchbox_theme_css() {
         $name = "style-searchbox.css";
-        $css_file = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . "wpsearchboxio" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . $name;
+        $css_file = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . "wp-elasticsearch" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . $name;
         if ( false !== @file_exists( $css_file ) ) {
             $css = $this->plugin_url . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . $name;
         } else {
@@ -471,6 +474,12 @@ class Wp_Searchbox_IO {
      */
     function index_all_posts() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
+        $model_post = new ModelPost();
+        $model_post->documentType = get_option( 'searchbox_settings_index_name' );
+        $model_post->serverUrl = get_option( 'searchbox_settings_server' );
+        if ($model_post->checkIndexExists() != 200) {
+            $model_post->createIndexName();
+        }
         //Default it gets last 5 posts, so give your parameters. Further detail here : http://codex.wordpress.org/Template_Tags/get_posts
         $args = array(
             'numberposts'     => 99999,
@@ -479,6 +488,7 @@ class Wp_Searchbox_IO {
             'orderby'         => 'post_date'
         );
         $posts = get_posts( $args );
+        $document_count = 0;
         foreach ($posts as $post) {
             //tags
             $tags = get_the_tags( $post->ID );
@@ -504,14 +514,19 @@ class Wp_Searchbox_IO {
                 'author' => $user_info->user_login,
                 'uri' => $url
             );
+            $document_count++;
         }
-        $model_post = new ModelPost();
+
         $model_post->buildIndexDataBulk( $post_data );
         $model_post->documentType = ModelPost::$_TYPE;
         $model_post->documentPrefix = ModelPost::$_PREFIX;
+<<<<<<< HEAD
         $model_post->serverUrl = get_option( 'searchbox_settings_server' );
         $model_post->checkIndexExists();
+=======
+>>>>>>> hotfix-elasticsearch
         $model_post->index(true);
+        return $document_count;
     }
 
 
@@ -519,7 +534,16 @@ class Wp_Searchbox_IO {
     function delete_all_posts() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model_post = new ModelPost( null, null, null, null, null, get_option( 'searchbox_settings_server' ) );
+        $model_post->documentType = get_option( 'searchbox_settings_index_name' );
         $model_post->deleteAll();
+    }
+
+    function check_server_status($url) {
+        require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
+        $model_post = new ModelPost();
+        $model_post->documentType = get_option( 'searchbox_settings_index_name' );
+        $model_post->serverUrl = $url;
+        return $model_post->checkServerStatus();
     }
 
 }
