@@ -28,7 +28,7 @@ class ModelPost extends ModelBase {
         $this->cats = $cats;
         $this->author = $author;
         $this->serverUrl = $serverUrl;
-        $this->documentType = ModelPost::$_TYPE;
+        $this->documentType = ($this->documentType != null) ? $this->documentType : ModelPost::$_TYPE;
         $this->buildIndexData();
     }
     function __autoload_elastica ($class) {

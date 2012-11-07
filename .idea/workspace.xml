@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="89675c2d-7be0-4db0-8d10-847c6fc58fde" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Elastica/Index.php" afterPath="$PROJECT_DIR$/lib/Elastica/Index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ModelBase.php" afterPath="$PROJECT_DIR$/lib/ModelBase.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ModelPost.php" afterPath="$PROJECT_DIR$/lib/ModelPost.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Searcher.php" afterPath="$PROJECT_DIR$/lib/Searcher.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/search_result_page.php" afterPath="$PROJECT_DIR$/search_result_page.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/searchboxio.php" afterPath="$PROJECT_DIR$/searchboxio.php" />
     </list>
     <ignored path="wp-elasticsearch.iws" />
@@ -24,20 +28,59 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="search_result_page.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="search_result_page.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/search_result_page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="0.0">
+            <state line="67" column="0" selection-start="3193" selection-end="3193" vertical-scroll-proportion="0.109433964">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="searchboxio.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Searcher.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Searcher.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="77" column="26" selection-start="2623" selection-end="2623" vertical-scroll-proportion="-16.666666">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Elastica/Index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="239" column="33" selection-start="6916" selection-end="6916" vertical-scroll-proportion="-8.96875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Search.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Elastica/Search.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="192" column="20" selection-start="3990" selection-end="3990" vertical-scroll-proportion="10.0625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style-searchbox.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/style-searchbox.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="searchboxio.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/searchboxio.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="284" column="32" selection-start="13419" selection-end="13419" vertical-scroll-proportion="0.5531915">
-              <folding />
+            <state line="305" column="86" selection-start="14124" selection-end="14124" vertical-scroll-proportion="1.4912281">
+              <folding>
+                <marker date="1352281497851" expanded="true" signature="11930:12043" placeholder="..." />
+                <marker date="1352281497851" expanded="true" signature="11930:11969" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -45,7 +88,7 @@
       <file leaf-file-name="ModelBase.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="91" column="28" selection-start="3337" selection-end="3337" vertical-scroll-proportion="-6.34375">
+            <state line="54" column="71" selection-start="2175" selection-end="2189" vertical-scroll-proportion="-6.614035">
               <folding />
             </state>
           </provider>
@@ -54,7 +97,7 @@
       <file leaf-file-name="ModelPost.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ModelPost.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="30" column="30" selection-start="874" selection-end="874" vertical-scroll-proportion="-6.105263">
               <folding />
             </state>
           </provider>
@@ -73,9 +116,12 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/search_result_page.php" />
         <option value="$PROJECT_DIR$/lib/ModelBase.php" />
+        <option value="$PROJECT_DIR$/lib/ModelPost.php" />
+        <option value="$PROJECT_DIR$/lib/Elastica/Index.php" />
         <option value="$PROJECT_DIR$/searchboxio.php" />
+        <option value="$PROJECT_DIR$/lib/Searcher.php" />
+        <option value="$PROJECT_DIR$/search_result_page.php" />
       </list>
     </option>
   </component>
@@ -83,8 +129,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
     <option name="y" value="-4" />
-    <option name="width" value="1602" />
-    <option name="height" value="905" />
+    <option name="width" value="1922" />
+    <option name="height" value="1085" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -112,6 +158,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -144,15 +191,65 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wp-elasticsearch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wp-elasticsearch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Elastica" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wp-elasticsearch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wp-elasticsearch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="224" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="233" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="224" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="239" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1148" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1148" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="239" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="233" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -165,23 +262,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-4" width="1602" height="905" extended-state="6" />
+    <frame x="-1" y="-4" width="1922" height="1085" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25289574" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2524013" sideWeight="0.6702356" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -240,6 +337,13 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="46" selection-start="3901" selection-end="3901" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/search_result_page.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="0.0">
@@ -250,7 +354,10 @@
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="460" column="43" selection-start="21152" selection-end="21152" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <marker date="1352281497851" expanded="true" signature="11930:12043" placeholder="..." />
+            <marker date="1352281497851" expanded="true" signature="11930:11969" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -278,7 +385,10 @@
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="460" column="43" selection-start="21152" selection-end="21152" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <marker date="1352281497851" expanded="true" signature="11930:12043" placeholder="..." />
+            <marker date="1352281497851" expanded="true" signature="11930:11969" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -289,14 +399,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/search_result_page.php">
+    <entry file="file://$PROJECT_DIR$/lib/ModelPost.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="0.0">
+        <state line="30" column="30" selection-start="874" selection-end="874" vertical-scroll-proportion="-6.105263">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ModelPost.php">
+    <entry file="file://$PROJECT_DIR$/css/style-searchbox.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -305,14 +415,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="28" selection-start="3337" selection-end="3337" vertical-scroll-proportion="-6.34375">
+        <state line="54" column="71" selection-start="2175" selection-end="2189" vertical-scroll-proportion="-6.614035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Elastica/Search.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="192" column="20" selection-start="3990" selection-end="3990" vertical-scroll-proportion="10.0625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Elastica/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="239" column="33" selection-start="6916" selection-end="6916" vertical-scroll-proportion="-8.96875">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="284" column="32" selection-start="13419" selection-end="13419" vertical-scroll-proportion="0.5531915">
+        <state line="305" column="86" selection-start="14124" selection-end="14124" vertical-scroll-proportion="1.4912281">
+          <folding>
+            <marker date="1352281497851" expanded="true" signature="11930:12043" placeholder="..." />
+            <marker date="1352281497851" expanded="true" signature="11930:11969" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Searcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="26" selection-start="2623" selection-end="2623" vertical-scroll-proportion="-16.666666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/search_result_page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="0" selection-start="3193" selection-end="3193" vertical-scroll-proportion="0.109433964">
           <folding />
         </state>
       </provider>

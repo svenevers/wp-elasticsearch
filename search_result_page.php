@@ -11,7 +11,18 @@
         $limit = 4;
         require_once( "lib" . DIRECTORY_SEPARATOR . "Searcher.php" );
         $searcher = new Searcher( get_option( 'searchbox_settings_server' ) );
-        $search_results = $searcher->search( $_GET , array( 'tags', 'cats', 'author' ), $offset, $limit );
+        $facetArr = array();
+        if ( get_option( 'searchbox_result_category_facet' ) ) {
+            array_push( $facetArr, 'cats' );
+        }
+        if ( get_option( 'searchbox_result_tags_facet' ) ) {
+            array_push( $facetArr, 'tags' );
+        }
+        if ( get_option( 'searchbox_result_author_facet' ) ) {
+            array_push( $facetArr, 'author' );
+        }
+        //In order to use search for specfic index type, give that type to 5th parameter
+        $search_results = $searcher->search( $_GET , $facetArr, $offset, $limit, false );
 
         //prepare pagination variables
         $pagination_args = array(
@@ -20,9 +31,12 @@
             'range' => 4,
             'items_per_page' => 2
         );
+
+        $search_result_count = $searcher->search( $_GET , $facetArr, false, false, false )->count();
         ?>
             <header class="page-header">
                 <h1 class="page_title">Search Results for "<span><?=$searcher->extract_query_string($query_string, 's')?></span>"</h1>
+                <h3 class="page_title">Showing <?=( $offset + 1 )?>-<?=( ( $offset + $limit ) >= $search_result_count ) ? $search_result_count : ( $offset + $limit )?> of <?=$search_result_count?> result(s)</h3>
             </header>
 
 
@@ -59,6 +73,7 @@
                 This area is contains faceted search terms of given result set
             </div>
     </aside>
+    <?php if ( ( get_option( 'searchbox_result_tags_facet' ) ) ): ?>
     <!-- Tags -->
     <aside id="archives-3" class="widget">
         <h3 class="widget-title">Tags</h3>
@@ -73,6 +88,9 @@
         </ul>
         <?php endif; ?>
     </aside>
+    <?php endif; ?>
+
+    <?php if ( ( get_option( 'searchbox_result_category_facet' ) ) ): ?>
     <!-- Categories -->
     <aside id="archives-3" class="widget">
         <h3 class="widget-title">Categories</h3>
@@ -86,6 +104,9 @@
         </ul>
         <?php endif; ?>
     </aside>
+    <?php endif; ?>
+
+    <?php if ( ( get_option( 'searchbox_result_author_facet' ) ) ): ?>
     <!-- Author -->
     <aside id="archives-3" class="widget">
         <h3 class="widget-title">Author</h3>
@@ -99,6 +120,7 @@
         </ul>
         <?php endif; ?>
     </aside>
+    <?php endif; ?>
 </section>
 <form name="search-form-hidden" id="search-form-hidden" action="<?php echo site_url(); ?>">
     <input type="hidden" name="s" id="searchbox-s" value="<?php echo ( empty( $_GET['s'] ) ) ? '' : $_GET['s']; ?>"/>

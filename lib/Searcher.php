@@ -28,7 +28,7 @@ class Searcher
         }
     }
 
-    function search($query, $facets = array(), $offset = false, $limit = false)
+    function search($query, $facets = array(), $offset = false, $limit = false, $indexType = false)
     {
         $global_query = $query;
         $query = $global_query['s'];
@@ -85,7 +85,11 @@ class Searcher
             $elasticaQuery->setFacets($facet_arr);
         }
         //Search on the index.
-        $elasticaResultSet = $this->elastic_search_client->getIndex(ModelBase::$_INDEX)->search($elasticaQuery);
+        if ($indexType) {
+            $elasticaResultSet = $this->elastic_search_client->getIndex(ModelBase::$_INDEX)->getType($indexType)->search($elasticaQuery);
+        } else {
+            $elasticaResultSet = $this->elastic_search_client->getIndex(ModelBase::$_INDEX)->search($elasticaQuery);
+        }
         return $elasticaResultSet;
     }
 
