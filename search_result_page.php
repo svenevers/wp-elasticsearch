@@ -35,7 +35,11 @@
         $search_result_count = $searcher->search( $_GET , $facetArr, false, false, get_option( 'searchbox_settings_index_name' ), false )->count();
         ?>
             <header class="page-header">
-                <h1 class="page_title">Showing <?=( $offset + 1 )?>-<?=( ( $offset + $limit ) >= $search_result_count ) ? $search_result_count : ( $offset + $limit )?> of <?=$search_result_count?> result(s) for search term "<?=$searcher->extract_query_string($query_string, 's')?>"</span>"</h1>
+                <?php if ( $search_result_count > 0 ): ?>
+                    <h1 class="page_title">Showing <?=( $offset + 1 )?>-<?=( ( $offset + $limit ) >= $search_result_count ) ? $search_result_count : ( $offset + $limit )?> of <?=$search_result_count?> result(s) for search term "<span><?=$searcher->extract_query_string($query_string, 's')?></span>"</h1>
+                <?php else: ?>
+                    <h1 class="page_title">No result found for term "</span><?=$searcher->extract_query_string($query_string, 's')?></span>"</h1>
+                <?php endif; ?>
             </header>
 
 
@@ -58,9 +62,11 @@
                 </div>
             </article><!-- #post-<?php echo $search_data['id']; ?> -->
         <?php } ?>
-            <article>
-                <?php paginate( $pagination_args ); ?>
-            </article>
+            <?php if ( $search_result_count > 0 ): ?>
+                <article>
+                    <?php paginate( $pagination_args ); ?>
+                </article>
+            <?php endif; ?>
     </div>
 </section>
 <?php $elasticaFacets = $search_results->getFacets(); ?>

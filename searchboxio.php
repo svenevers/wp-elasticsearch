@@ -197,6 +197,12 @@ class Wp_Searchbox_IO {
         function showResponse(responseText, statusText, xhr, $form){
             $form.children('#board').html(responseText);
             $form.find('.button-primary').removeAttr('disabled');
+            closeResponseMessage($form.children('#board'));
+        }
+
+        //remove response text after 5 secs.
+        function closeResponseMessage(elem) {
+            var t = setTimeout(function() { elem.empty(); }, 5000);
         }
 
         function checkServerStatusAjax(serverUrl){

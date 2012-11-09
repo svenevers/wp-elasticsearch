@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7338a8bc-0662-42c3-b2da-5d22bddcd543" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/search_result_page.php" afterPath="$PROJECT_DIR$/search_result_page.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/searchboxio.php" afterPath="$PROJECT_DIR$/searchboxio.php" />
     </list>
     <ignored path="wp-elasticsearch.iws" />
@@ -26,8 +27,36 @@
       <file leaf-file-name="searchboxio.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/searchboxio.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="198" column="63" selection-start="9284" selection-end="9284" vertical-scroll-proportion="0.6349942">
+            <state line="204" column="57" selection-start="9506" selection-end="9506" vertical-scroll-proportion="0.6349942">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="search_result_page.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/search_result_page.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="65" column="16" selection-start="3402" selection-end="3497" vertical-scroll-proportion="-4.5789475">
+              <folding>
+                <marker date="1352466130199" expanded="true" signature="2371:2494" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="2650:2690" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="2842:3128" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="2866:3128" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="3712:4003" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="3763:3973" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="4103:4190" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="4227:4272" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="4330:4421" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="4920:5013" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="5050:5095" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="5153:5292" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="5632:5721" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="5760:5805" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="5865:6006" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="6314:6399" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="6871:7097" placeholder="..." />
+                <marker date="1352466130199" expanded="true" signature="7599:7752" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -45,6 +74,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$PROJECT_DIR$/search_result_page.php" />
         <option value="$PROJECT_DIR$/searchboxio.php" />
       </list>
     </option>
@@ -196,9 +226,35 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/search_result_page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="16" selection-start="3402" selection-end="3497" vertical-scroll-proportion="-4.5789475">
+          <folding>
+            <marker date="1352466130199" expanded="true" signature="2371:2494" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="2650:2690" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="2842:3128" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="2866:3128" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="3712:4003" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="3763:3973" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="4103:4190" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="4227:4272" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="4330:4421" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="4920:5013" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="5050:5095" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="5153:5292" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="5632:5721" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="5760:5805" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="5865:6006" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="6314:6399" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="6871:7097" placeholder="..." />
+            <marker date="1352466130199" expanded="true" signature="7599:7752" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="63" selection-start="9284" selection-end="9284" vertical-scroll-proportion="0.6349942">
+        <state line="204" column="57" selection-start="9506" selection-end="9506" vertical-scroll-proportion="0.6349942">
           <folding />
         </state>
       </provider>
