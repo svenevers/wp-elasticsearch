@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89675c2d-7be0-4db0-8d10-847c6fc58fde" name="Default" comment="">
+    <list default="true" id="7338a8bc-0662-42c3-b2da-5d22bddcd543" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-<<<<<<< HEAD
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ModelBase.php" afterPath="$PROJECT_DIR$/lib/ModelBase.php" />
-=======
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Elastica/Index.php" afterPath="$PROJECT_DIR$/lib/Elastica/Index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ModelBase.php" afterPath="$PROJECT_DIR$/lib/ModelBase.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ModelPost.php" afterPath="$PROJECT_DIR$/lib/ModelPost.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Searcher.php" afterPath="$PROJECT_DIR$/lib/Searcher.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/search_result_page.php" afterPath="$PROJECT_DIR$/search_result_page.php" />
->>>>>>> hotfix-elasticsearch
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/searchboxio.php" afterPath="$PROJECT_DIR$/searchboxio.php" />
     </list>
     <ignored path="wp-elasticsearch.iws" />
@@ -32,95 +23,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="search_result_page.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/search_result_page.php">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="-0.61346996">
-=======
-            <state line="67" column="0" selection-start="3193" selection-end="3193" vertical-scroll-proportion="0.109433964">
->>>>>>> hotfix-elasticsearch
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-<<<<<<< HEAD
-      <file leaf-file-name="searchboxio.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="searchboxio.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/searchboxio.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="483" column="78" selection-start="21950" selection-end="21950" vertical-scroll-proportion="-4.9298244">
-=======
-      <file leaf-file-name="Searcher.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Searcher.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="26" selection-start="2623" selection-end="2623" vertical-scroll-proportion="-16.666666">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Elastica/Index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="239" column="33" selection-start="6916" selection-end="6916" vertical-scroll-proportion="-8.96875">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Search.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Elastica/Search.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="192" column="20" selection-start="3990" selection-end="3990" vertical-scroll-proportion="10.0625">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style-searchbox.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/style-searchbox.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="searchboxio.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/searchboxio.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="305" column="86" selection-start="14124" selection-end="14124" vertical-scroll-proportion="1.4912281">
->>>>>>> hotfix-elasticsearch
-              <folding>
-                <marker date="1352281497851" expanded="true" signature="11930:12043" placeholder="..." />
-                <marker date="1352281497851" expanded="true" signature="11930:11969" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelBase.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state line="32" column="19" selection-start="1143" selection-end="1143" vertical-scroll-proportion="44.40625">
-=======
-            <state line="54" column="71" selection-start="2175" selection-end="2189" vertical-scroll-proportion="-6.614035">
->>>>>>> hotfix-elasticsearch
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelPost.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ModelPost.php">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state line="74" column="20" selection-start="2206" selection-end="2206" vertical-scroll-proportion="14.5">
-=======
-            <state line="30" column="30" selection-start="874" selection-end="874" vertical-scroll-proportion="-6.105263">
->>>>>>> hotfix-elasticsearch
+            <state line="198" column="63" selection-start="9284" selection-end="9284" vertical-scroll-proportion="0.6349942">
               <folding />
             </state>
           </provider>
@@ -139,48 +45,15 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/search_result_page.php" />
-        <option value="$PROJECT_DIR$/lib/ModelBase.php" />
-        <option value="$PROJECT_DIR$/lib/ModelPost.php" />
-=======
-        <option value="$PROJECT_DIR$/lib/ModelBase.php" />
-        <option value="$PROJECT_DIR$/lib/ModelPost.php" />
-        <option value="$PROJECT_DIR$/lib/Elastica/Index.php" />
->>>>>>> hotfix-elasticsearch
         <option value="$PROJECT_DIR$/searchboxio.php" />
-        <option value="$PROJECT_DIR$/lib/Searcher.php" />
-        <option value="$PROJECT_DIR$/search_result_page.php" />
       </list>
     </option>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
     <option name="y" value="-4" />
-<<<<<<< HEAD
-    <option name="width" value="1602" />
-    <option name="height" value="905" />
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>CSS</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
-=======
     <option name="width" value="1922" />
     <option name="height" value="1085" />
->>>>>>> hotfix-elasticsearch
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -208,7 +81,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -227,148 +99,45 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Elastica" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-<<<<<<< HEAD
-=======
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
->>>>>>> hotfix-elasticsearch
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-<<<<<<< HEAD
-    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
-=======
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="224" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="233" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="224" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="239" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1148" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1148" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="239" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="233" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
->>>>>>> hotfix-elasticsearch
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
-      <method />
-    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="DETECT_NESTED_COPIES" value="true" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="89675c2d-7be0-4db0-8d10-847c6fc58fde" name="Default" comment="" />
-      <created>1349368901234</created>
-      <updated>1349368901234</updated>
+      <changelist id="7338a8bc-0662-42c3-b2da-5d22bddcd543" name="Default" comment="" />
+      <created>1352463017010</created>
+      <updated>1352463017010</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-<<<<<<< HEAD
-    <frame x="-1" y="-4" width="1602" height="905" extended-state="6" />
-=======
     <frame x="-1" y="-4" width="1922" height="1085" extended-state="6" />
->>>>>>> hotfix-elasticsearch
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-<<<<<<< HEAD
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891247" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24903475" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-=======
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2524013" sideWeight="0.6702356" order="0" side_tool="false" content_ui="combo" />
->>>>>>> hotfix-elasticsearch
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2497332" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -427,195 +196,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="46" selection-start="3901" selection-end="3901" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/search_result_page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state line="482" column="114" selection-start="21903" selection-end="21903" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#6#260#0" expanded="true" />
-=======
-        <state line="460" column="43" selection-start="21152" selection-end="21152" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1352281497851" expanded="true" signature="11930:12043" placeholder="..." />
-            <marker date="1352281497851" expanded="true" signature="11930:11969" placeholder="..." />
->>>>>>> hotfix-elasticsearch
-          </folding>
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/search_result_page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="0.0">
-=======
-    <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ModelPost.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
->>>>>>> hotfix-elasticsearch
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searchboxio.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="460" column="43" selection-start="21152" selection-end="21152" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#6#260#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/search_result_page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searchboxio.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="460" column="43" selection-start="21152" selection-end="21152" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#6#260#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/search_result_page.php">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-=======
-        <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searchboxio.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="460" column="43" selection-start="21152" selection-end="21152" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1352281497851" expanded="true" signature="11930:12043" placeholder="..." />
-            <marker date="1352281497851" expanded="true" signature="11930:11969" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/search_result_page.php">
-      <provider selected="true" editor-type-id="text-editor">
->>>>>>> hotfix-elasticsearch
-        <state line="68" column="103" selection-start="3183" selection-end="3183" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/lib/Elastica/Query.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.75">
-=======
-    <entry file="file://$PROJECT_DIR$/lib/ModelPost.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="30" selection-start="874" selection-end="874" vertical-scroll-proportion="-6.105263">
->>>>>>> hotfix-elasticsearch
-          <folding />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/lib/Elastica/Index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="323" column="42" selection-start="9178" selection-end="9178" vertical-scroll-proportion="0.42097265">
-=======
-    <entry file="file://$PROJECT_DIR$/css/style-searchbox.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
->>>>>>> hotfix-elasticsearch
-          <folding />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/lib/ModelPost.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="20" selection-start="2206" selection-end="2206" vertical-scroll-proportion="14.5">
-=======
-    <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="71" selection-start="2175" selection-end="2189" vertical-scroll-proportion="-6.614035">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Elastica/Search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="20" selection-start="3990" selection-end="3990" vertical-scroll-proportion="10.0625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Elastica/Index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="33" selection-start="6916" selection-end="6916" vertical-scroll-proportion="-8.96875">
->>>>>>> hotfix-elasticsearch
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searchboxio.php">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state line="483" column="78" selection-start="21950" selection-end="21950" vertical-scroll-proportion="-4.9298244">
-=======
-        <state line="305" column="86" selection-start="14124" selection-end="14124" vertical-scroll-proportion="1.4912281">
->>>>>>> hotfix-elasticsearch
-          <folding>
-            <marker date="1352281497851" expanded="true" signature="11930:12043" placeholder="..." />
-            <marker date="1352281497851" expanded="true" signature="11930:11969" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="19" selection-start="1143" selection-end="1143" vertical-scroll-proportion="44.40625">
-=======
-    <entry file="file://$PROJECT_DIR$/lib/Searcher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="26" selection-start="2623" selection-end="2623" vertical-scroll-proportion="-16.666666">
->>>>>>> hotfix-elasticsearch
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/search_result_page.php">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state line="69" column="18" selection-start="3202" selection-end="3203" vertical-scroll-proportion="-0.61346996">
-=======
-        <state line="67" column="0" selection-start="3193" selection-end="3193" vertical-scroll-proportion="0.109433964">
->>>>>>> hotfix-elasticsearch
+        <state line="198" column="63" selection-start="9284" selection-end="9284" vertical-scroll-proportion="0.6349942">
           <folding />
         </state>
       </provider>

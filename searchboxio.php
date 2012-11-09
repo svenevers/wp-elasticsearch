@@ -190,11 +190,13 @@ class Wp_Searchbox_IO {
         // pre-submit callback
         function showWait(formData, jqForm, options){
             jqForm.children('#board').html("<div class='updated fade'>please wait... "+waitImg+"</div>");
+            jqForm.find('.button-primary').attr('disabled', 'disabled');
             return true;
         }
         // post-submit callback
         function showResponse(responseText, statusText, xhr, $form){
             $form.children('#board').html(responseText);
+            $form.find('.button-primary').removeAttr('disabled');
         }
 
         function checkServerStatusAjax(serverUrl){
