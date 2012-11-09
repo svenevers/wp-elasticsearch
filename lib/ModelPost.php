@@ -10,6 +10,7 @@ class ModelPost extends ModelBase {
 
     public static $_PREFIX = 'post_';
     public static $_TYPE = 'post';
+    public static $_INDEX = 'wordpress';
 
     protected static $fieldsToIndex = array(
         'post_date' => 'date',
@@ -29,6 +30,7 @@ class ModelPost extends ModelBase {
         $this->author = $author;
         $this->serverUrl = $serverUrl;
         $this->documentType = ($this->documentType != null) ? $this->documentType : ModelPost::$_TYPE;
+        $this->documentIndex = ($this->documentIndex != null) ? $this->documentIndex : ModelPost::$_INDEX;
         $this->buildIndexData();
     }
     function __autoload_elastica ($class) {

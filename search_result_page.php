@@ -21,8 +21,8 @@
         if ( get_option( 'searchbox_result_author_facet' ) ) {
             array_push( $facetArr, 'author' );
         }
-        //In order to use search for specfic index type, give that type to 5th parameter
-        $search_results = $searcher->search( $_GET , $facetArr, $offset, $limit, false );
+        //In order to use search for specfic index type, give that type to 6th parameter
+        $search_results = $searcher->search( $_GET , $facetArr, $offset, $limit, get_option( 'searchbox_settings_index_name' ), false );
 
         //prepare pagination variables
         $pagination_args = array(
@@ -32,11 +32,10 @@
             'items_per_page' => 2
         );
 
-        $search_result_count = $searcher->search( $_GET , $facetArr, false, false, false )->count();
+        $search_result_count = $searcher->search( $_GET , $facetArr, false, false, get_option( 'searchbox_settings_index_name' ), false )->count();
         ?>
             <header class="page-header">
-                <h1 class="page_title">Search Results for "<span><?=$searcher->extract_query_string($query_string, 's')?></span>"</h1>
-                <h3 class="page_title">Showing <?=( $offset + 1 )?>-<?=( ( $offset + $limit ) >= $search_result_count ) ? $search_result_count : ( $offset + $limit )?> of <?=$search_result_count?> result(s)</h3>
+                <h1 class="page_title">Showing <?=( $offset + 1 )?>-<?=( ( $offset + $limit ) >= $search_result_count ) ? $search_result_count : ( $offset + $limit )?> of <?=$search_result_count?> result(s) for search term "<?=$searcher->extract_query_string($query_string, 's')?>"</span>"</h1>
             </header>
 
 

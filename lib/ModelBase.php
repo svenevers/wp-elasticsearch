@@ -5,9 +5,9 @@ abstract class ModelBase {
     var $elasticaClient = null;
     var $documentToIndex = null;
     var $documentType = null;
+    var $documentIndex = null;
     var $documentPrefix = null;
 
-    public static $_INDEX = 'wordpress';
     public static $_CHUNK_SIZE = 1000;
     public static $_SEARCHBOX_URL = "http://api.searchbox.io/";
 
@@ -35,7 +35,7 @@ abstract class ModelBase {
             if ($this->elasticClient == null) {
                 $this->initialize();
             }
-            $elasticaIndex = $this->elasticaClient->getIndex(ModelBase::$_INDEX);
+            $elasticaIndex = $this->elasticaClient->getIndex($this->documentIndex);
             $elasticaType = $elasticaIndex->getType($this->documentType);
             if ($bulk) {
                 $i = 0;
@@ -67,7 +67,7 @@ abstract class ModelBase {
         if ($this->elasticClient == null) {
             $this->initialize();
         }
-        $elasticaIndex = $this->elasticaClient->getIndex(ModelBase::$_INDEX);
+        $elasticaIndex = $this->elasticaClient->getIndex($this->documentIndex);
         $elasticaType = $elasticaIndex->getType($this->documentType);
         $elasticaType->deleteById($this->documentType . $documentId);
         $elasticaType->getIndex()->refresh();
@@ -80,29 +80,21 @@ abstract class ModelBase {
         if ($this->elasticClient == null) {
             $this->initialize();
         }
-        $elasticaIndex = $this->elasticaClient->getIndex(ModelBase::$_INDEX);
+        $elasticaIndex = $this->elasticaClient->getIndex($this->documentIndex);
         $elasticaType = $elasticaIndex->getType($this->documentType);
         $elasticaType->delete();
         $elasticaType->getIndex()->refresh();
     }
 
-<<<<<<< HEAD
-=======
+
     /**
      * Check index existance
      */
->>>>>>> hotfix-elasticsearch
     public function checkIndexExists() {
-        $url = $this->serverUrl . ModelBase::$_INDEX;
+        $url = $this->serverUrl . $this->documentIndex;
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'HEAD');
-<<<<<<< HEAD
-
-        //execute post
-        $result = curl_exec($ch);
-        var_dump($result);
-=======
         $result = curl_exec($ch);
         $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         return $http_status;
@@ -127,7 +119,7 @@ abstract class ModelBase {
      * Create index with curl
      */
     public function createIndexName() {
-        $url = $this->serverUrl . ModelBase::$_INDEX;
+        $url = $this->serverUrl . $this->documentIndex;
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
@@ -139,7 +131,7 @@ abstract class ModelBase {
      * Check index count
      */
     public function checkIndexCount() {
-        $url = $this->serverUrl . ModelBase::$_INDEX . '/_stats';
+        $url = $this->serverUrl . $this->documentIndex . '/_stats';
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, false);
@@ -148,6 +140,5 @@ abstract class ModelBase {
         $indexData = json_decode(curl_exec($ch), true);
         curl_close ($ch);
         return $indexData['_all']['primaries']['docs']['count'];
->>>>>>> hotfix-elasticsearch
     }
 }

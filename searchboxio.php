@@ -39,6 +39,7 @@ class Wp_Searchbox_IO {
         add_action( 'wp_ajax_searchbox_delete_all_posts', array( &$this, 'searchbox_delete_all_posts' ) );
         add_action( 'wp_ajax_check_server_status', array( &$this, 'searchbox_check_server_status' ) );
         add_action( 'wp_print_styles', array( &$this, 'searchbox_theme_css' ) );
+        register_activation_hook( __FILE__, array( &$this, 'on_plugin_init' ) );
 
         //frontend hooks
         add_action( 'save_post', array( &$this, 'index_post' ) );
@@ -60,6 +61,14 @@ class Wp_Searchbox_IO {
 
         //misc.
         $this->plugin_url = plugins_url() . DIRECTORY_SEPARATOR . basename( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR;
+    }
+
+    //plugin init
+    function on_plugin_init() {
+        //Default plugin values
+        update_option( 'searchbox_result_category_facet', true );
+        update_option( 'searchbox_result_tags_facet', true );
+        update_option( 'searchbox_result_author_facet', true );
     }
 
     //admin menu option
@@ -161,10 +170,6 @@ class Wp_Searchbox_IO {
             return false;
         });
         jQuery('#searchbox_index_all_pages').submit(function(){
-            jQuery(this).ajaxSubmit(options);
-            return false;
-        });
-        jQuery('#searchbox_index_optimize').submit(function(){
             jQuery(this).ajaxSubmit(options);
             return false;
         });
@@ -311,7 +316,6 @@ class Wp_Searchbox_IO {
     //Some indexing operations on admin panel option page
     function on_indexing_operations_conf() {
         $this->custom_buttons( "searchbox_index_all_posts", "Index All Posts" );
-        $this->custom_buttons( "searchbox_index_optimize", "Optimize Index" );
         $this->custom_buttons( "searchbox_delete_all_posts", "Delete Documents" );
     }
 
@@ -424,7 +428,7 @@ class Wp_Searchbox_IO {
             //get author info
             $user_info = get_userdata( $post->post_author );
             $model_post = new ModelPost($post, $tags, $url, $cats, $user_info->user_login, get_option( 'searchbox_settings_server' ) );
-            $model_post->documentType = get_option( 'searchbox_settings_index_name' );
+            $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
             $model_post->index();
         }
     }
@@ -436,7 +440,7 @@ class Wp_Searchbox_IO {
     function delete_post( $post_id ) {
         if ( get_option( "searchbox_delete_post_on_remove" ) ) {
             $model_post = new ModelPost( null, null, null, null, null, get_option( 'searchbox_settings_server' ) );
-            $model_post->documentType = get_option( 'searchbox_settings_index_name' );
+            $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
             $model_post->delete($post_id);
         }
     }
@@ -475,7 +479,7 @@ class Wp_Searchbox_IO {
     function index_all_posts() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model_post = new ModelPost();
-        $model_post->documentType = get_option( 'searchbox_settings_index_name' );
+        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
         $model_post->serverUrl = get_option( 'searchbox_settings_server' );
         if ($model_post->checkIndexExists() != 200) {
             $model_post->createIndexName();
@@ -518,13 +522,10 @@ class Wp_Searchbox_IO {
         }
 
         $model_post->buildIndexDataBulk( $post_data );
-        $model_post->documentType = ModelPost::$_TYPE;
+        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
         $model_post->documentPrefix = ModelPost::$_PREFIX;
-<<<<<<< HEAD
         $model_post->serverUrl = get_option( 'searchbox_settings_server' );
         $model_post->checkIndexExists();
-=======
->>>>>>> hotfix-elasticsearch
         $model_post->index(true);
         return $document_count;
     }
@@ -534,20 +535,23 @@ class Wp_Searchbox_IO {
     function delete_all_posts() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model_post = new ModelPost( null, null, null, null, null, get_option( 'searchbox_settings_server' ) );
-        $model_post->documentType = get_option( 'searchbox_settings_index_name' );
+        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
         $model_post->deleteAll();
     }
 
     function check_server_status($url) {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model_post = new ModelPost();
-        $model_post->documentType = get_option( 'searchbox_settings_index_name' );
+        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
         $model_post->serverUrl = $url;
         return $model_post->checkServerStatus();
     }
 
 }
+
 //create an instance of plugin
 if ( class_exists( 'Wp_Searchbox_IO' ) ) {
-    $wp_searchbox_io = new Wp_Searchbox_IO();
+    if ( !isset( $wp_searchbox_io ) ) {
+        $wp_searchbox_io = new Wp_Searchbox_IO;
+    }
 }
