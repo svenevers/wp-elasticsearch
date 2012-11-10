@@ -38,6 +38,7 @@ class Wp_Searchbox_IO {
         add_action( 'wp_ajax_searchbox_index_all_posts', array( &$this, 'searchbox_index_all_posts' ) );
         add_action( 'wp_ajax_searchbox_delete_all_posts', array( &$this, 'searchbox_delete_all_posts' ) );
         add_action( 'wp_ajax_check_server_status', array( &$this, 'searchbox_check_server_status' ) );
+        add_action( 'wp_ajax_check_document_count', array( &$this, 'searchbox_check_document_count' ) );
         add_action( 'wp_print_styles', array( &$this, 'searchbox_theme_css' ) );
         register_activation_hook( __FILE__, array( &$this, 'on_plugin_init' ) );
 
@@ -69,6 +70,7 @@ class Wp_Searchbox_IO {
         update_option( 'searchbox_result_category_facet', true );
         update_option( 'searchbox_result_tags_facet', true );
         update_option( 'searchbox_result_author_facet', true );
+        update_option( 'searchbox_settings_index_name', 'wordpress' );
     }
 
     //admin menu option
@@ -76,7 +78,7 @@ class Wp_Searchbox_IO {
         //add option page to settings menu on admin panel
         if (function_exists('add_menu_page')) {
             $this->pagehook = add_menu_page( 'WPSearchboxIO Index/Search Manager', "WPSearchboxIO", 'administrator', basename( __FILE__ ),
-                array( &$this, 'on_show_page' ), plugins_url( 'wpsearchboxio/images/searchboxio.ico' ) );
+                array( &$this, 'on_show_page' ), $this->plugin_url . 'images/searchboxio.ico' );
         } else {
             $this->pagehook = add_options_page( 'WPSearchboxIO', "WPSearchboxIO", 'manage_options', 'WP-Searchbox-IO', array( &$this, 'on_show_page' ) );
         }
@@ -155,6 +157,7 @@ class Wp_Searchbox_IO {
             }
             jQuery(this).ajaxSubmit(options);
             checkServerStatusAjax(url);
+            checkDocumentCountAjax(url);
             return false;
         });
         jQuery('#searchbox_form_indexing_settings').submit(function(){
@@ -167,14 +170,14 @@ class Wp_Searchbox_IO {
         });
         jQuery('#searchbox_index_all_posts').submit(function(){
             jQuery(this).ajaxSubmit(options);
-            return false;
-        });
-        jQuery('#searchbox_index_all_pages').submit(function(){
-            jQuery(this).ajaxSubmit(options);
+            //Put delay here, because it check document count while creating documents and it always returns zero
+            var s = setTimeout(function() {checkDocumentCountAjax(false);}, 1000);
             return false;
         });
         jQuery('#searchbox_delete_all_posts').submit(function(){
             jQuery(this).ajaxSubmit(options);
+            //Put delay here, because it check document count while creating documents and it always returns zero
+            var s = setTimeout(function() {checkDocumentCountAjax(false);}, 1000);
             return false;
         });
         jQuery('#searchbox_server_check').submit(function(){
@@ -216,6 +219,21 @@ class Wp_Searchbox_IO {
                             jQuery("#server-status-div").css({'background':'green'}).attr({'title':'Running'});
                         } else {
                             jQuery("#server-status-div").css({'background':'red'}).attr({'title':'Down'});
+                        }
+                    }, 'json');
+        }
+
+        function checkDocumentCountAjax(serverUrl){
+            var url = false;
+            if (serverUrl) {
+                url = serverUrl;
+            }
+            jQuery.post(ajaxurl, { action: "check_document_count", url: url },
+                    function(data) {
+                        if (data) {
+                            jQuery("#document-count-div").html(data);
+                        } else {
+                            jQuery("#document-count-div").html("0");
                         }
                     }, 'json');
         }
@@ -298,7 +316,7 @@ class Wp_Searchbox_IO {
         $this->form_start('searchbox_form_server_settings');
         $this->form_component( "Elasticsearch server:", "text", "searchbox_settings_server", $this->searchbox_settings_server );
         $this->custom_status( true );
-        $this->custom_text( "Total Index Count:", "<b>" . $model->checkIndexCount() . "</b>" );
+        $this->custom_text( "Total Index Count:", "<span id='document-count-div' style='font-weight:bold;'>" . $model->checkIndexCount() . "</span>" );
         $this->form_end();
     }
 
@@ -390,6 +408,22 @@ class Wp_Searchbox_IO {
                 $ret = $this->check_server_status( $_POST['url'] );
             } else {
                 $ret = $this->check_server_status( get_option( 'searchbox_settings_server' ) );
+            }
+        }
+        echo json_encode($ret);
+        die;
+    }
+
+    /**
+     * Check server status ajax
+     */
+    function searchbox_check_document_count() {
+        $ret = false;
+        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'check_document_count' ) {
+            if ( $_POST['url'] !== 'false' ) {
+                $ret = $this->check_document_count( $_POST['url'] );
+            } else {
+                $ret = $this->check_document_count( get_option( 'searchbox_settings_server' ) );
             }
         }
         echo json_encode($ret);
@@ -547,12 +581,20 @@ class Wp_Searchbox_IO {
         $model_post->deleteAll();
     }
 
-    function check_server_status($url) {
+    function check_server_status( $url ) {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model_post = new ModelPost();
         $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
         $model_post->serverUrl = $url;
         return $model_post->checkServerStatus();
+    }
+
+    function check_document_count( $url ) {
+        require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
+        $model_post = new ModelPost();
+        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
+        $model_post->serverUrl = $url;
+        return $model_post->checkIndexCount();
     }
 
 }
