@@ -395,7 +395,12 @@ class Wp_Searchbox_IO {
 
     function searchbox_delete_all_posts() {
         if ( !empty( $_POST['action'] ) && $_POST['action'] == 'searchbox_delete_all_posts' ) {
-            $this->delete_all_posts();
+            try {
+                $this->delete_all_posts();
+            } catch(Exception $e) {
+                echo "<div class='error fade'>" . __( 'An error occured!. Be sure that you are trying to delete existing index' ) . "</div>";
+                die;
+            }
         }
         echo "<div class='updated fade'>" . __( 'Delete All Post Operation Finished' ) . "</div>";
         die;
@@ -474,6 +479,7 @@ class Wp_Searchbox_IO {
             //get author info
             $user_info = get_userdata( $post->post_author );
             $model_post = new ModelPost($post, $tags, $url, $cats, $user_info->user_login, get_option( 'searchbox_settings_server' ) );
+            $model_post->documentPrefix = ModelPost::$_PREFIX;
             $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
             $model_post->index();
         }
