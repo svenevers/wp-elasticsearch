@@ -69,7 +69,7 @@ abstract class ModelBase {
         }
         $elasticaIndex = $this->elasticaClient->getIndex($this->documentIndex);
         $elasticaType = $elasticaIndex->getType($this->documentType);
-        $elasticaType->deleteById($this->documentType . $documentId);
+        $elasticaType->deleteById($documentId);
         $elasticaType->getIndex()->refresh();
     }
 

@@ -79,10 +79,10 @@
             </div>
     </aside>
     <?php if ( ( get_option( 'searchbox_result_tags_facet' ) ) ): ?>
+    <?php if ( !empty( $elasticaFacets['tags']['terms'] ) ): ?>
     <!-- Tags -->
     <aside id="archives-3" class="widget">
         <h3 class="widget-title">Tags</h3>
-        <?php if ( !empty( $elasticaFacets['tags']['terms'] ) ): ?>
         <ul>
             <?php foreach ( $elasticaFacets['tags']['terms'] as $elasticaFacet ) { ?>
             <li>
@@ -91,15 +91,16 @@
             </li>
             <?php } ?>
         </ul>
-        <?php endif; ?>
+
     </aside>
+    <?php endif; ?>
     <?php endif; ?>
 
     <?php if ( ( get_option( 'searchbox_result_category_facet' ) ) ): ?>
+    <?php if ( !empty( $elasticaFacets['cats']['terms'] ) ): ?>
     <!-- Categories -->
     <aside id="archives-3" class="widget">
         <h3 class="widget-title">Categories</h3>
-        <?php if ( !empty( $elasticaFacets['cats']['terms'] ) ): ?>
         <ul>
             <?php foreach ( $elasticaFacets['cats']['terms'] as $elasticaFacet ) { ?>
             <li>
@@ -107,15 +108,15 @@
             </li>
             <?php } ?>
         </ul>
-        <?php endif; ?>
     </aside>
+    <?php endif; ?>
     <?php endif; ?>
 
     <?php if ( ( get_option( 'searchbox_result_author_facet' ) ) ): ?>
+    <?php if ( !empty( $elasticaFacets['author']['terms'] ) ): ?>
     <!-- Author -->
     <aside id="archives-3" class="widget">
         <h3 class="widget-title">Author</h3>
-        <?php if ( !empty( $elasticaFacets['author']['terms'] ) ): ?>
         <ul>
             <?php foreach ( $elasticaFacets['author']['terms'] as $elasticaFacet ) { ?>
             <li>
@@ -123,8 +124,8 @@
             </li>
             <?php } ?>
         </ul>
-        <?php endif; ?>
     </aside>
+    <?php endif; ?>
     <?php endif; ?>
 </section>
 <form name="search-form-hidden" id="search-form-hidden" action="<?php echo site_url(); ?>">

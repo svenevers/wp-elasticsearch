@@ -45,6 +45,7 @@ class Wp_Searchbox_IO {
         //frontend hooks
         add_action( 'save_post', array( &$this, 'index_post' ) );
         add_action( 'delete_post', array( &$this, 'delete_post' ) );
+        add_action( 'trash_post', array( &$this, 'delete_post' ) );
         add_action( 'template_redirect', array( &$this, 'search_term') );
 
         //server settings
@@ -71,6 +72,8 @@ class Wp_Searchbox_IO {
         update_option( 'searchbox_result_tags_facet', true );
         update_option( 'searchbox_result_author_facet', true );
         update_option( 'searchbox_settings_index_name', 'wordpress' );
+        update_option( 'searchbox_delete_post_on_remove', true );
+        update_option( 'searchbox_delete_post_on_unpublish', true );
     }
 
     //admin menu option
@@ -447,6 +450,7 @@ class Wp_Searchbox_IO {
         } else {
             $post = get_post( $post_id );
         }
+
         if ($post->post_status != 'publish') {
             if ( get_option( 'searchbox_delete_post_on_unpublish' ) ) {
                 $this->delete_post( $post_id );
@@ -480,10 +484,11 @@ class Wp_Searchbox_IO {
      * @param $post_id
      */
     function delete_post( $post_id ) {
+        require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         if ( get_option( "searchbox_delete_post_on_remove" ) ) {
             $model_post = new ModelPost( null, null, null, null, null, get_option( 'searchbox_settings_server' ) );
             $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
-            $model_post->delete($post_id);
+            $model_post->delete(ModelPost::$_PREFIX . $post_id);
         }
     }
 
