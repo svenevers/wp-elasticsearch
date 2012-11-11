@@ -26,16 +26,7 @@
       <file leaf-file-name="searchboxio.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/searchboxio.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="396" column="63" selection-start="18199" selection-end="18199" vertical-scroll-proportion="0.28328174">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelBase.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="20" selection-start="1134" selection-end="1134" vertical-scroll-proportion="4.5588236">
+            <state line="391" column="39" selection-start="17969" selection-end="17969" vertical-scroll-proportion="0.5222552">
               <folding />
             </state>
           </provider>
@@ -141,7 +132,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2495238" sideWeight="0.6706667" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24903226" sideWeight="0.6706667" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -211,9 +202,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="65" selection-start="3146" selection-end="3146" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="74" column="65" selection-start="3146" selection-end="3146" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ModelPost.php">
@@ -238,14 +227,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="20" selection-start="1134" selection-end="1134" vertical-scroll-proportion="4.5588236">
-          <folding />
-        </state>
+        <state line="32" column="20" selection-start="1134" selection-end="1134" vertical-scroll-proportion="4.5588236" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="396" column="63" selection-start="18199" selection-end="18199" vertical-scroll-proportion="0.28328174">
+        <state line="391" column="39" selection-start="17969" selection-end="17969" vertical-scroll-proportion="0.5222552">
           <folding />
         </state>
       </provider>

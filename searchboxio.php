@@ -387,6 +387,11 @@ class Wp_Searchbox_IO {
     function searchbox_index_all_posts() {
         $document_count = 0;
         if ( !empty( $_POST['action'] ) && $_POST['action'] == 'searchbox_index_all_posts' ) {
+            $count_posts = wp_count_posts();
+            if ( $count_posts->publish < 1 ) {
+                echo "<div class='error fade'>" . __( 'There is no document to index' ) . "</div>";
+                die;
+            }
             $document_count = $this->index_all_posts();
         }
         echo "<div class='updated fade'>" . __( 'Index All Post Operation Finished, ' . $document_count . ' document(s) sent to the Elasticsearch server' ) . "</div>";
