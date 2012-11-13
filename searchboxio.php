@@ -392,6 +392,10 @@ class Wp_Searchbox_IO {
                 echo "<div class='error fade'>" . __( 'There is no document to index' ) . "</div>";
                 die;
             }
+            if ( !$this->check_server_status( get_option( 'searchbox_settings_server' ) ) ) {
+                echo "<div class='error fade'>" . __( 'Couldn\'t connect to elasticsearch server: ' . get_option( 'searchbox_settings_server' ) ) . "</div>";
+                die;
+            }
             $document_count = $this->index_all_posts();
         }
         echo "<div class='updated fade'>" . __( 'Index All Post Operation Finished, ' . $document_count . ' document(s) sent to the Elasticsearch server' ) . "</div>";

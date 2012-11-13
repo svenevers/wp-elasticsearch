@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="005ce5a1-b7bd-4e90-8e29-0b239f24f301" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/searchboxio.php" afterPath="$PROJECT_DIR$/searchboxio.php" />
     </list>
     <ignored path="wp-elasticsearch.iws" />
@@ -26,7 +25,16 @@
       <file leaf-file-name="searchboxio.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/searchboxio.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="391" column="39" selection-start="17969" selection-end="17969" vertical-scroll-proportion="0.5222552">
+            <state line="395" column="143" selection-start="18302" selection-end="18302" vertical-scroll-proportion="0.38066825">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ModelBase.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="105" column="20" selection-start="3706" selection-end="3706" vertical-scroll-proportion="-9.4375">
               <folding />
             </state>
           </provider>
@@ -56,8 +64,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
     <option name="y" value="-4" />
-    <option name="width" value="1602" />
-    <option name="height" value="905" />
+    <option name="width" value="1922" />
+    <option name="height" value="1085" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -73,7 +81,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -84,29 +92,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-elasticsearch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -125,7 +111,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-4" width="1602" height="905" extended-state="6" />
+    <frame x="-1" y="-4" width="1922" height="1085" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -202,6 +188,13 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="391" column="39" selection-start="17969" selection-end="17969" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/searchboxio.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="65" selection-start="3146" selection-end="3146" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
@@ -227,12 +220,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ModelBase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="20" selection-start="1134" selection-end="1134" vertical-scroll-proportion="4.5588236" />
+        <state line="105" column="20" selection-start="3706" selection-end="3706" vertical-scroll-proportion="-9.4375">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="391" column="39" selection-start="17969" selection-end="17969" vertical-scroll-proportion="0.5222552">
+        <state line="395" column="143" selection-start="18302" selection-end="18302" vertical-scroll-proportion="0.38066825">
           <folding />
         </state>
       </provider>
