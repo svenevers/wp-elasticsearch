@@ -8,8 +8,8 @@
     Author URI: http://www.searchbox.io
     Tags: elasticsearch, index
 */
-
-class Wp_Searchbox_IO {
+require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'searchboxio_widget.php' );
+class Wp_Searchbox_IO extends WP_Widget {
 
     //server settings
     var $searchbox_settings_server;
@@ -41,6 +41,7 @@ class Wp_Searchbox_IO {
         add_action( 'wp_ajax_check_document_count', array( &$this, 'searchbox_check_document_count' ) );
         add_action( 'wp_print_styles', array( &$this, 'searchbox_theme_css' ) );
         register_activation_hook( __FILE__, array( &$this, 'on_plugin_init' ) );
+        add_action( 'widgets_init', create_function( '', 'register_widget("searchboxio_widget");' ) );
 
         //frontend hooks
         add_action( 'save_post', array( &$this, 'index_post' ) );
@@ -616,7 +617,6 @@ class Wp_Searchbox_IO {
         $model_post->serverUrl = $url;
         return $model_post->checkIndexCount();
     }
-
 }
 
 //create an instance of plugin

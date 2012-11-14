@@ -1,9 +1,10 @@
 <?php get_header(); ?>
-<section id="primary">
+<div id="container" style="float: left;">
     <div id="content" role="main">
 
         <?php
         global $query_string;
+        global $elasticaFacets;
         $offset = 0;
         if ( get_query_var( 'page' ) != "" ) {
             $offset = ( max( 1, get_query_var( 'page' ) ) - 1 ) * 4;
@@ -34,13 +35,13 @@
 
         $search_result_count = $searcher->search( $_GET , $facetArr, false, false, get_option( 'searchbox_settings_index_name' ), false )->count();
         ?>
-            <header class="page-header">
-                <?php if ( $search_result_count > 0 ): ?>
-                    <h1 class="page_title">Showing <?=( $offset + 1 )?>-<?=( ( $offset + $limit ) >= $search_result_count ) ? $search_result_count : ( $offset + $limit )?> of <?=$search_result_count?> result(s) for search term "<span><?=$searcher->extract_query_string($query_string, 's')?></span>"</h1>
-                <?php else: ?>
-                    <h1 class="page_title">No result found for term "</span><?=$searcher->extract_query_string($query_string, 's')?></span>"</h1>
-                <?php endif; ?>
-            </header>
+
+            <?php if ( $search_result_count > 0 ): ?>
+                <h3>Showing <?=( $offset + 1 )?>-<?=( ( $offset + $limit ) >= $search_result_count ) ? $search_result_count : ( $offset + $limit )?> of <?=$search_result_count?> result(s) for search term "<span><?=$searcher->extract_query_string($query_string, 's')?></span>"</h3>
+            <?php else: ?>
+                <h3>No result found for term "</span><?=$searcher->extract_query_string($query_string, 's')?></span>"</h3>
+            <?php endif; ?>
+
 
 
         <?php foreach ($search_results->getResults() as $search_result) { ?>
@@ -62,85 +63,16 @@
                 </div>
             </article><!-- #post-<?php echo $search_data['id']; ?> -->
         <?php } ?>
-            <?php if ( $search_result_count > 0 ): ?>
+            <?php if ( $search_result_count > $pagination_args['items_per_page'] ): ?>
                 <article>
                     <?php paginate( $pagination_args ); ?>
                 </article>
             <?php endif; ?>
     </div>
-</section>
+</div>
 <?php $elasticaFacets = $search_results->getFacets(); ?>
-<?php if ( !empty( $elasticaFacets ) ): ?>
-<section id="secondary" class="widget-area" role="complementary">
-    <aside id="text-6" class="widget widget_text">
-        <h3 class="widget-title">Searchbox IO Facet Area</h3>
-            <div class="textwidget">
-                This area is contains faceted search terms of given result set
-            </div>
-    </aside>
-    <?php if ( ( get_option( 'searchbox_result_tags_facet' ) ) ): ?>
-    <?php if ( !empty( $elasticaFacets['tags']['terms'] ) ): ?>
-    <!-- Tags -->
-    <aside id="archives-3" class="widget">
-        <h3 class="widget-title">Tags</h3>
-        <ul>
-            <?php foreach ( $elasticaFacets['tags']['terms'] as $elasticaFacet ) { ?>
-            <li>
-                <input type="checkbox" name="facet-tag" value="<?php  echo $elasticaFacet['term']; ?>"/>
-                <a href="javascript:;" title="tags" class="facet-search-link" onclick="searchlink(this)" data="<?php  echo $elasticaFacet['term']; ?>"><?php  echo $elasticaFacet['term'] . "(" . $elasticaFacet['count'] . ")"; ?></a>
-            </li>
-            <?php } ?>
-        </ul>
 
-    </aside>
-    <?php endif; ?>
-    <?php endif; ?>
-
-    <?php if ( ( get_option( 'searchbox_result_category_facet' ) ) ): ?>
-    <?php if ( !empty( $elasticaFacets['cats']['terms'] ) ): ?>
-    <!-- Categories -->
-    <aside id="archives-3" class="widget">
-        <h3 class="widget-title">Categories</h3>
-        <ul>
-            <?php foreach ( $elasticaFacets['cats']['terms'] as $elasticaFacet ) { ?>
-            <li>
-                <a href="javascript:;" title="cats" class="facet-search-link" onclick="searchlink(this)" data="<?php  echo $elasticaFacet['term']; ?>"><?php  echo $elasticaFacet['term'] . "(" . $elasticaFacet['count'] . ")"; ?></a>
-            </li>
-            <?php } ?>
-        </ul>
-    </aside>
-    <?php endif; ?>
-    <?php endif; ?>
-
-    <?php if ( ( get_option( 'searchbox_result_author_facet' ) ) ): ?>
-    <?php if ( !empty( $elasticaFacets['author']['terms'] ) ): ?>
-    <!-- Author -->
-    <aside id="archives-3" class="widget">
-        <h3 class="widget-title">Author</h3>
-        <ul>
-            <?php foreach ( $elasticaFacets['author']['terms'] as $elasticaFacet ) { ?>
-            <li>
-                <a href="javascript:;" title="author" class="facet-search-link" onclick="searchlink(this)" data="<?php  echo $elasticaFacet['term']; ?>"><?php  echo $elasticaFacet['term'] . "(" . $elasticaFacet['count'] . ")"; ?></a>
-            </li>
-            <?php } ?>
-        </ul>
-    </aside>
-    <?php endif; ?>
-    <?php endif; ?>
-</section>
-<form name="search-form-hidden" id="search-form-hidden" action="<?php echo site_url(); ?>">
-    <input type="hidden" name="s" id="searchbox-s" value="<?php echo ( empty( $_GET['s'] ) ) ? '' : $_GET['s']; ?>"/>
-    <input type="hidden" name="tags" id="searchbox-tags" value="<?php echo ( empty( $_GET['tags'] ) ) ? '' : $_GET['tags'];?>"/>
-    <input type="hidden" name="cats" id="searchbox-cats" value="<?php echo ( empty( $_GET['cats'] ) ) ? '' : $_GET['cats'];?>"/>
-    <input type="hidden" name="author" id="searchbox-author" value="<?php echo ( empty( $_GET['author'] ) ) ? '' : $_GET['author'];?>"/>
-</form>
-    <script type="text/javascript">
-        function searchlink(element) {
-            document.getElementById("searchbox-" + element.title).value = element.getAttribute("data");
-            document.forms["search-form-hidden"].submit();
-        }
-    </script>
-<?php endif; ?>
+<?php get_sidebar();?>
 <?php get_footer(); exit; ?>
 <?php
 /**
