@@ -1,6 +1,6 @@
 <?php
 class searchboxio_widget extends WP_Widget {
-    private $widget_title = "Elasticsearch Facet Widget";
+    private $widget_title = "Elasticsearch";
 
     public function __construct() {
         parent::__construct(
@@ -21,10 +21,11 @@ class searchboxio_widget extends WP_Widget {
                 <!-- Tags -->
                     <h5>Tags</h5>
                     <ul>
-                        <?php foreach ( $elasticaFacets['tags']['terms'] as $elasticaFacet ) { ?>
-                        <li>
-                            <input type="checkbox" name="facet-tag" value="<?php  echo $elasticaFacet['term']; ?>"/>
-                            <a href="javascript:;" title="tags" class="facet-search-link" onclick="searchlink(this)" data="<?php  echo $elasticaFacet['term']; ?>"><?php  echo $elasticaFacet['term'] . "(" . $elasticaFacet['count'] . ")"; ?></a>
+                        <?php $i = 0; ?>
+                        <?php foreach ( $elasticaFacets['tags']['terms'] as $elasticaFacet ) { $i++; ?>
+                        <li style="list-style-type: none;">
+                            <input type="checkbox" name="facet-tag" value="<?php  echo $elasticaFacet['term']; ?>" id="tag_<?php echo $i; ?>" class="tags" onclick="searchlink('tags')" <?php echo (strpos(htmlspecialchars(urldecode($_GET['tags'])), $elasticaFacet['term']) > -1) ? "checked":""; ?>/>
+                            <label for="tag_<?php echo $i; ?>" class="facet-search-link"><?php  echo $elasticaFacet['term']; ?></label>
                         </li>
                         <?php } ?>
                     </ul>
@@ -36,9 +37,11 @@ class searchboxio_widget extends WP_Widget {
                 <!-- Categories -->
                     <h5>Categories</h5>
                     <ul>
-                        <?php foreach ( $elasticaFacets['cats']['terms'] as $elasticaFacet ) { ?>
-                        <li>
-                            <a href="javascript:;" title="cats" class="facet-search-link" onclick="searchlink(this)" data="<?php  echo $elasticaFacet['term']; ?>"><?php  echo $elasticaFacet['term'] . "(" . $elasticaFacet['count'] . ")"; ?></a>
+                        <?php $i = 0; ?>
+                        <?php foreach ( $elasticaFacets['cats']['terms'] as $elasticaFacet ) { $i++; ?>
+                        <li style="list-style-type: none;">
+                            <input type="checkbox" name="facet-cats" value="<?php  echo $elasticaFacet['term']; ?>" id="cats_<?php echo $i; ?>" class="cats" onclick="searchlink('cats')" <?php echo (strpos(htmlspecialchars(urldecode($_GET['cats'])), $elasticaFacet['term']) > -1) ? "checked":""; ?>/>
+                            <label for="cats_<?php echo $i; ?>" class="facet-search-link"><?php  echo $elasticaFacet['term']; ?></label>
                         </li>
                         <?php } ?>
                     </ul>
@@ -50,9 +53,11 @@ class searchboxio_widget extends WP_Widget {
                 <!-- Author -->
                     <h5>Author</h5>
                     <ul>
-                        <?php foreach ( $elasticaFacets['author']['terms'] as $elasticaFacet ) { ?>
-                        <li>
-                            <a href="javascript:;" title="author" class="facet-search-link" onclick="searchlink(this)" data="<?php  echo $elasticaFacet['term']; ?>"><?php  echo $elasticaFacet['term'] . "(" . $elasticaFacet['count'] . ")"; ?></a>
+                        <?php $i = 0; ?>
+                        <?php foreach ( $elasticaFacets['author']['terms'] as $elasticaFacet ) { $i++; ?>
+                        <li style="list-style-type: none;">
+                            <input type="checkbox" name="facet-author" value="<?php  echo $elasticaFacet['term']; ?>" id="author_<?php echo $i; ?>" class="author" onclick="searchlink('author')" <?php echo (strpos(htmlspecialchars(urldecode($_GET['author'])), $elasticaFacet['term']) > -1) ? "checked":""; ?>/>
+                            <label for="author_<?php echo $i; ?>" class="facet-search-link"><?php  echo $elasticaFacet['term']; ?></label>
                         </li>
                         <?php } ?>
                     </ul>
@@ -66,10 +71,26 @@ class searchboxio_widget extends WP_Widget {
             <input type="hidden" name="author" id="searchbox-author" value="<?php echo ( empty( $_GET['author'] ) ) ? '' : $_GET['author'];?>"/>
         </form>
         <script type="text/javascript">
-            function searchlink(element) {
-                document.getElementById("searchbox-" + element.title).value = element.getAttribute("data");
-                document.forms["search-form-hidden"].submit();
+            //<![CDATA[
+            window.onload = function() {
+                document.getElementById("s").value = "<?php echo $_GET['s']; ?>";
             }
+                function searchlink(element) {
+                    var checkboxes = document.body.getElementsByClassName(element);
+                    var checkArr = new Array();
+                    var tempCheckArr = new Array();
+
+                    for (var i = 0; i < checkboxes.length; i++) {
+                        if (typeof tempCheckArr[checkboxes[i].value] == 'undefined') {
+                            if (checkboxes[i].checked) {
+                                checkArr.push(checkboxes[i].value);
+                            }
+                        }
+                    }
+                    document.getElementById("searchbox-" + element).value = checkArr.join(",");
+                    document.forms["search-form-hidden"].submit();
+                }
+            //]]>
         </script>
         <?php endif;
     }

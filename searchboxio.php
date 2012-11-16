@@ -9,7 +9,7 @@
     Tags: elasticsearch, index
 */
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'searchboxio_widget.php' );
-class Wp_Searchbox_IO extends WP_Widget {
+class Wp_Searchbox_IO {
 
     //server settings
     var $searchbox_settings_server;
@@ -27,6 +27,12 @@ class Wp_Searchbox_IO extends WP_Widget {
     //misc.
     var $version = '1.0';
     var $plugin_url = '';
+    var $search_successful = false;
+    var $total_num_results = 0;
+    var $post_ids = NULL;
+    var $per_page = 10;
+    var $posts = NULL;
+
 
 
     
@@ -41,13 +47,17 @@ class Wp_Searchbox_IO extends WP_Widget {
         add_action( 'wp_ajax_check_document_count', array( &$this, 'searchbox_check_document_count' ) );
         add_action( 'wp_print_styles', array( &$this, 'searchbox_theme_css' ) );
         register_activation_hook( __FILE__, array( &$this, 'on_plugin_init' ) );
-        add_action( 'widgets_init', create_function( '', 'register_widget("searchboxio_widget");' ) );
+        if ( !is_search() ) {
+            add_action( 'widgets_init', create_function( '', 'register_widget("searchboxio_widget");' ) );
+        }
+        add_action( 'pre_get_posts', array( $this, 'get_posts_from_elasticsearch' ) );
+        add_filter( 'the_posts', array( $this, 'get_search_result_posts' ) );
 
         //frontend hooks
         add_action( 'save_post', array( &$this, 'index_post' ) );
         add_action( 'delete_post', array( &$this, 'delete_post' ) );
         add_action( 'trash_post', array( &$this, 'delete_post' ) );
-        add_action( 'template_redirect', array( &$this, 'search_term') );
+        //add_action( 'template_redirect', array( &$this, 'search_term') );
 
         //server settings
         $this->searchbox_settings_server = get_option( "searchbox_settings_server" );
@@ -616,6 +626,72 @@ class Wp_Searchbox_IO extends WP_Widget {
         $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
         $model_post->serverUrl = $url;
         return $model_post->checkIndexCount();
+    }
+
+    function get_posts_from_elasticsearch( $wp_query ) {
+        $this->search_successful = false;
+        if( function_exists( 'is_main_query' ) && ! $wp_query->is_main_query() ) {
+            return;
+        }
+        if( is_search() && ! is_admin() ) {
+            global $query_string;
+            global $elasticaFacets;
+            $offset = 0;
+            if ( get_query_var( 'page' ) != "" ) {
+                $offset = ( max( 1, get_query_var( 'page' ) ) - 1 ) * 4;
+            }
+            $limit = 4;
+            require_once( "lib" . DIRECTORY_SEPARATOR . "Searcher.php" );
+            $searcher = new Searcher( get_option( 'searchbox_settings_server' ) );
+            $facetArr = array();
+            if ( get_option( 'searchbox_result_category_facet' ) ) {
+                array_push( $facetArr, 'cats' );
+            }
+            if ( get_option( 'searchbox_result_tags_facet' ) ) {
+                array_push( $facetArr, 'tags' );
+            }
+            if ( get_option( 'searchbox_result_author_facet' ) ) {
+                array_push( $facetArr, 'author' );
+            }
+            $page = get_query_var( 'paged' );
+            $offset = 0;
+            if( $page > 0 ) {
+                $offset = ( $page - 1 ) * $this->per_page;
+            }
+
+            //In order to use search for specfic index type, give that type to 6th parameter
+            $search_results = $searcher->search( $_GET , $facetArr, $offset, $this->per_page, get_option( 'searchbox_settings_index_name' ), false );
+
+            $search_result_count = $searcher->search( $_GET , $facetArr, false, false, get_option( 'searchbox_settings_index_name' ), false )->count();
+
+            $elasticsearch_post_ids = array();
+            $records = $search_results->getResults();
+            foreach( $records as $record ) {
+                $search_data = $record->getData();
+                $elasticsearch_post_ids[] = $search_data['id'];
+            }
+            $this->total_num_results = $search_result_count;
+            $this->post_ids = $elasticsearch_post_ids;
+            $wp_query->query_vars['post__in'] = $this->post_ids;
+            $wp_query->query_vars['posts_per_page'] = -1;
+            unset($wp_query->query_vars['author']);
+            $elasticaFacets = $search_results->getFacets();
+            $this->search_successful = true;
+        }
+
+    }
+
+    public function get_search_result_posts( $posts ) {
+
+        if( ! is_search() ) {
+            return $posts;
+        }
+        if( ! $this->search_successful ) {
+            return array();
+        }
+        global $wp_query;
+        $wp_query->max_num_pages = ceil( $this->total_num_results / $this->per_page );
+        return $posts;
     }
 }
 

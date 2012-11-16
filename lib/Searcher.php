@@ -42,20 +42,23 @@ class Searcher
         $authorTerm = $global_query['author'];
         $catTerm = $global_query['cats'];
         if (!empty($tagTerm)) {
-            $filterTag	= new Elastica_Filter_Term();
-            $filterTag->setTerm('tags', $tagTerm);
+            $tagTermArr = explode(",", $tagTerm);
+            $filterTag	= new Elastica_Filter_Terms();
+            $filterTag->setTerms('tags', $tagTermArr);
             $elasticaFilterAnd->addFilter($filterTag);
         }
 
         if (!empty($authorTerm)) {
-            $filterAuthor	= new Elastica_Filter_Term();
-            $filterAuthor->setTerm('author', $authorTerm);
+            $authorTermArr = explode(",", $authorTerm);
+            $filterAuthor	= new Elastica_Filter_Terms();
+            $filterAuthor->setTerms('author', $authorTermArr);
             $elasticaFilterAnd->addFilter($filterAuthor);
         }
 
         if (!empty($catTerm)) {
-            $filterCat	= new Elastica_Filter_Term();
-            $filterCat->setTerm('cats', $catTerm);
+            $catTermArr = explode(",", $catTerm);
+            $filterCat	= new Elastica_Filter_Terms();
+            $filterCat->setTerms('cats', $catTermArr);
             $elasticaFilterAnd->addFilter($filterCat);
         }
 
