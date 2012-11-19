@@ -675,6 +675,9 @@ class Wp_Searchbox_IO {
             $wp_query->query_vars['post__in'] = $this->post_ids;
             $wp_query->query_vars['posts_per_page'] = -1;
             unset($wp_query->query_vars['author']);
+            unset($wp_query->query_vars['title']);
+            unset($wp_query->query_vars['content']);
+            $wp_query->query_vars['s'] = str_replace("*", "", $wp_query->query_vars['s']);
             $elasticaFacets = $search_results->getFacets();
             $this->search_successful = true;
         }

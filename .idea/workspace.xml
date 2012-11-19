@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/searchboxio.php" line="692" />
+    <bookmark url="file://$PROJECT_DIR$/searchboxio.php" line="695" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="005ce5a1-b7bd-4e90-8e29-0b239f24f301" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Searcher.php" afterPath="$PROJECT_DIR$/lib/Searcher.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/searchboxio.php" afterPath="$PROJECT_DIR$/searchboxio.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/searchboxio_widget.php" afterPath="$PROJECT_DIR$/searchboxio_widget.php" />
     </list>
     <ignored path="wp-elasticsearch.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +29,7 @@
       <file leaf-file-name="Searcher.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/Searcher.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="57" selection-start="1467" selection-end="1467" vertical-scroll-proportion="-7.25">
+            <state line="36" column="39" selection-start="1237" selection-end="1237" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -40,7 +38,7 @@
       <file leaf-file-name="Term.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/Elastica/Filter/Term.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="20" selection-start="1036" selection-end="1036" vertical-scroll-proportion="-18.40625">
+            <state line="40" column="20" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -49,12 +47,8 @@
       <file leaf-file-name="searchboxio_widget.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/searchboxio_widget.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="81" selection-start="4525" selection-end="4525" vertical-scroll-proportion="-20.625">
-              <folding>
-                <element signature="e#958#988#0" expanded="true" />
-                <element signature="e#2003#2033#0" expanded="true" />
-                <element signature="e#3045#3075#0" expanded="true" />
-              </folding>
+            <state line="75" column="81" selection-start="4525" selection-end="4525" vertical-scroll-proportion="-0.90625">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -62,7 +56,7 @@
       <file leaf-file-name="search_result_page.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/search_result_page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="6" selection-start="3515" selection-end="3562" vertical-scroll-proportion="-19.03125">
+            <state line="72" column="6" selection-start="3515" selection-end="3562" vertical-scroll-proportion="12.6875">
               <folding />
             </state>
           </provider>
@@ -71,7 +65,7 @@
       <file leaf-file-name="searchboxio.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/searchboxio.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="692" column="86" selection-start="29611" selection-end="29611" vertical-scroll-proportion="1.1344148">
+            <state line="694" column="25" selection-start="29719" selection-end="29719" vertical-scroll-proportion="0.5695461">
               <folding />
             </state>
           </provider>
@@ -93,9 +87,9 @@
         <option value="$PROJECT_DIR$/lib/ModelBase.php" />
         <option value="$PROJECT_DIR$/lib/Elastica/Type.php" />
         <option value="$PROJECT_DIR$/search_result_page.php" />
+        <option value="$PROJECT_DIR$/searchboxio_widget.php" />
         <option value="$PROJECT_DIR$/lib/Searcher.php" />
         <option value="$PROJECT_DIR$/searchboxio.php" />
-        <option value="$PROJECT_DIR$/searchboxio_widget.php" />
       </list>
     </option>
   </component>
@@ -103,8 +97,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
     <option name="y" value="-4" />
-    <option name="width" value="1922" />
-    <option name="height" value="1085" />
+    <option name="width" value="1602" />
+    <option name="height" value="905" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -153,12 +147,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-4" width="1922" height="1085" extended-state="6" />
+    <frame x="-1" y="-4" width="1602" height="905" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28907922" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13835263" sideWeight="0.9628647" order="0" side_tool="false" content_ui="combo" />
@@ -170,6 +163,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28907922" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24967825" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -231,11 +225,7 @@
     <entry file="file://$PROJECT_DIR$/searchboxio_widget.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="76" column="43" selection-start="4711" selection-end="4711" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#958#988#0" expanded="true" />
-            <element signature="e#2003#2033#0" expanded="true" />
-            <element signature="e#3045#3075#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -289,41 +279,37 @@
         <state line="105" column="54" selection-start="2650" selection-end="2674" vertical-scroll-proportion="-9.4375" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/search_result_page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="6" selection-start="3515" selection-end="3562" vertical-scroll-proportion="-19.03125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/Elastica/Filter/Term.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="20" selection-start="1036" selection-end="1036" vertical-scroll-proportion="-18.40625">
+        <state line="40" column="20" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/Searcher.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="57" selection-start="1467" selection-end="1467" vertical-scroll-proportion="-7.25">
+        <state line="36" column="39" selection-start="1237" selection-end="1237" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/search_result_page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="6" selection-start="3515" selection-end="3562" vertical-scroll-proportion="12.6875">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/searchboxio_widget.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="81" selection-start="4525" selection-end="4525" vertical-scroll-proportion="-20.625">
-          <folding>
-            <element signature="e#958#988#0" expanded="true" />
-            <element signature="e#2003#2033#0" expanded="true" />
-            <element signature="e#3045#3075#0" expanded="true" />
-          </folding>
+        <state line="75" column="81" selection-start="4525" selection-end="4525" vertical-scroll-proportion="-0.90625">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/searchboxio.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="692" column="86" selection-start="29611" selection-end="29611" vertical-scroll-proportion="1.1344148">
+        <state line="694" column="25" selection-start="29719" selection-end="29719" vertical-scroll-proportion="0.5695461">
           <folding />
         </state>
       </provider>
