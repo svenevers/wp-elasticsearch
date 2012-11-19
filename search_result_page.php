@@ -11,19 +11,19 @@
         }
         $limit = 4;
         require_once( "lib" . DIRECTORY_SEPARATOR . "Searcher.php" );
-        $searcher = new Searcher( get_option( 'searchbox_settings_server' ) );
+        $searcher = new Searcher( get_option( 'elasticsearch_settings_server' ) );
         $facetArr = array();
-        if ( get_option( 'searchbox_result_category_facet' ) ) {
+        if ( get_option( 'elasticsearch_result_category_facet' ) ) {
             array_push( $facetArr, 'cats' );
         }
-        if ( get_option( 'searchbox_result_tags_facet' ) ) {
+        if ( get_option( 'elasticsearch_result_tags_facet' ) ) {
             array_push( $facetArr, 'tags' );
         }
-        if ( get_option( 'searchbox_result_author_facet' ) ) {
+        if ( get_option( 'elasticsearch_result_author_facet' ) ) {
             array_push( $facetArr, 'author' );
         }
         //In order to use search for specfic index type, give that type to 6th parameter
-        $search_results = $searcher->search( $_GET , $facetArr, $offset, $limit, get_option( 'searchbox_settings_index_name' ), false );
+        $search_results = $searcher->search( $_GET , $facetArr, $offset, $limit, get_option( 'elasticsearch_settings_index_name' ), false );
 
         //prepare pagination variables
         $pagination_args = array(
@@ -33,7 +33,7 @@
             'items_per_page' => 2
         );
 
-        $search_result_count = $searcher->search( $_GET , $facetArr, false, false, get_option( 'searchbox_settings_index_name' ), false )->count();
+        $search_result_count = $searcher->search( $_GET , $facetArr, false, false, get_option( 'elasticsearch_settings_index_name' ), false )->count();
         ?>
 
             <?php if ( $search_result_count > 0 ): ?>

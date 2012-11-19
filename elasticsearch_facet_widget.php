@@ -1,6 +1,6 @@
 <?php
-class searchboxio_widget extends WP_Widget {
-    private $widget_title = "Elasticsearch";
+class ElasticSearch_Facet_Widget extends WP_Widget {
+    private $widget_title = "Search Results";
 
     public function __construct() {
         parent::__construct(
@@ -8,7 +8,7 @@ class searchboxio_widget extends WP_Widget {
             'Elasticsearch Facet Widget',
             array(
                 'description' => __( 'Elasticsearch Facet Widget', 'text_domain' ),
-                'classname' => 'Wp_Searchbox_IO'
+                'classname' => 'Wp_ElasticSearch'
             )
         );
     }
@@ -16,7 +16,7 @@ class searchboxio_widget extends WP_Widget {
     function get_elasticsearch_facet_area() {
         global $elasticaFacets;
         if ( !empty( $elasticaFacets ) ): ?>
-            <?php if ( ( get_option( 'searchbox_result_tags_facet' ) ) ): ?>
+            <?php if ( ( get_option( 'elasticsearch_result_tags_facet' ) ) ): ?>
             <?php if ( !empty( $elasticaFacets['tags']['terms'] ) ): ?>
                 <!-- Tags -->
                     <h5>Tags</h5>
@@ -32,7 +32,7 @@ class searchboxio_widget extends WP_Widget {
                 <?php endif; ?>
             <?php endif; ?>
 
-            <?php if ( ( get_option( 'searchbox_result_category_facet' ) ) ): ?>
+            <?php if ( ( get_option( 'elasticsearch_result_category_facet' ) ) ): ?>
             <?php if ( !empty( $elasticaFacets['cats']['terms'] ) ): ?>
                 <!-- Categories -->
                     <h5>Categories</h5>
@@ -48,7 +48,7 @@ class searchboxio_widget extends WP_Widget {
                 <?php endif; ?>
             <?php endif; ?>
 
-            <?php if ( ( get_option( 'searchbox_result_author_facet' ) ) ): ?>
+            <?php if ( ( get_option( 'elasticsearch_result_author_facet' ) ) ): ?>
             <?php if ( !empty( $elasticaFacets['author']['terms'] ) ): ?>
                 <!-- Author -->
                     <h5>Author</h5>
@@ -72,9 +72,6 @@ class searchboxio_widget extends WP_Widget {
         </form>
         <script type="text/javascript">
             //<![CDATA[
-            window.onload = function() {
-                document.getElementById("s").value = "<?php echo $_GET['s']; ?>";
-            }
                 function searchlink(element) {
                     var checkboxes = document.body.getElementsByClassName(element);
                     var checkArr = new Array();

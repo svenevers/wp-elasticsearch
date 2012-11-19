@@ -9,7 +9,6 @@ abstract class ModelBase {
     var $documentPrefix = null;
 
     public static $_CHUNK_SIZE = 1000;
-    public static $_SEARCHBOX_URL = "http://api.searchbox.io/";
 
     function initialize() {
         spl_autoload_register(array( $this, '__autoload_elastica'));

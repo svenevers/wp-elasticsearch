@@ -9,10 +9,6 @@ class Searcher
     {
         spl_autoload_register(array($this, '__autoload_elastica'));
         $this->elasticsearch_server_url = $elasticsearch_server_url;
-        $config = array(
-            'host' => 'localhost',
-            'port' => 9200
-        );
         $this->elastic_search_client = new Elastica_Client(
             array(
                 'url' => $this->elasticsearch_server_url

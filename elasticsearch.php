@@ -1,28 +1,28 @@
 <?php
 /*
-    Plugin Name: WpSearchboxIO
+    Plugin Name: Wp-ElasticSearch
     Plugin URI: http://www.searchbox.io
-    Description: Index your wordpress site with elastic search.
+    Description: Index your WordPress site with ElasticSearch.
     Version: 1.0
     Author: Hüseyin BABAL
     Author URI: http://www.searchbox.io
     Tags: elasticsearch, index
 */
-require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'searchboxio_widget.php' );
-class Wp_Searchbox_IO {
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'elasticsearch_facet_widget.php');
+class Wp_ElasticSearch {
 
     //server settings
-    var $searchbox_settings_server;
+    var $elasticsearch_settings_server;
 
     //indexing settings
-    var $searchbox_delete_post_on_remove;
-    var $searchbox_delete_post_on_unpublish;
-    var $searchbox_settings_index_name;
+    var $elasticsearch_delete_post_on_remove;
+    var $elasticsearch_delete_post_on_unpublish;
+    var $elasticsearch_settings_index_name;
 
     //search result settings
-    var $searchbox_result_tags_facet;
-    var $searchbox_result_category_facet;
-    var $searchbox_result_author_facet;
+    var $elasticsearch_result_tags_facet;
+    var $elasticsearch_result_category_facet;
+    var $elasticsearch_result_author_facet;
 
     //misc.
     var $version = '1.0';
@@ -34,21 +34,18 @@ class Wp_Searchbox_IO {
     var $posts = NULL;
 
 
-
-    
-
-    function Wp_Searchbox_IO() {
+    function Wp_ElasticSearch() {
         //admin panel hooks
         add_action( 'admin_menu', array( &$this, 'on_admin_menu' ) );
-        add_action( 'wp_ajax_searchbox_option_update', array( &$this, 'searchbox_option_update' ) );
-        add_action( 'wp_ajax_searchbox_index_all_posts', array( &$this, 'searchbox_index_all_posts' ) );
-        add_action( 'wp_ajax_searchbox_delete_all_posts', array( &$this, 'searchbox_delete_all_posts' ) );
-        add_action( 'wp_ajax_check_server_status', array( &$this, 'searchbox_check_server_status' ) );
-        add_action( 'wp_ajax_check_document_count', array( &$this, 'searchbox_check_document_count' ) );
-        add_action( 'wp_print_styles', array( &$this, 'searchbox_theme_css' ) );
+        add_action( 'wp_ajax_elasticsearch_option_update', array( &$this, 'elasticsearch_option_update' ) );
+        add_action( 'wp_ajax_elasticsearch_index_all_posts', array( &$this, 'elasticsearch_index_all_posts' ) );
+        add_action( 'wp_ajax_elasticsearch_delete_all_posts', array( &$this, 'elasticsearch_delete_all_posts' ) );
+        add_action( 'wp_ajax_check_server_status', array( &$this, 'elasticsearch_check_server_status' ) );
+        add_action( 'wp_ajax_check_document_count', array( &$this, 'elasticsearch_check_document_count' ) );
+        add_action( 'wp_print_styles', array( &$this, 'elasticsearch_theme_css' ) );
         register_activation_hook( __FILE__, array( &$this, 'on_plugin_init' ) );
         if ( !is_search() ) {
-            add_action( 'widgets_init', create_function( '', 'register_widget("searchboxio_widget");' ) );
+            add_action( 'widgets_init', create_function( '', 'register_widget("elasticsearch_facet_widget");' ) );
         }
         add_action( 'pre_get_posts', array( $this, 'get_posts_from_elasticsearch' ) );
         add_filter( 'the_posts', array( $this, 'get_search_result_posts' ) );
@@ -60,17 +57,17 @@ class Wp_Searchbox_IO {
         //add_action( 'template_redirect', array( &$this, 'search_term') );
 
         //server settings
-        $this->searchbox_settings_server = get_option( "searchbox_settings_server" );
+        $this->elasticsearch_settings_server = get_option( "elasticsearch_settings_server" );
 
         //indexing settings
-        $this->searchbox_delete_post_on_remove = get_option( "searchbox_delete_post_on_remove" );
-        $this->searchbox_delete_post_on_unpublish = get_option( "searchbox_delete_post_on_unpublish" );
-        $this->searchbox_settings_index_name = get_option( "searchbox_settings_index_name" );
+        $this->elasticsearch_delete_post_on_remove = get_option( "elasticsearch_delete_post_on_remove" );
+        $this->elasticsearch_delete_post_on_unpublish = get_option( "elasticsearch_delete_post_on_unpublish" );
+        $this->elasticsearch_settings_index_name = get_option( "elasticsearch_settings_index_name" );
 
         //search result settings
-        $this->searchbox_result_tags_facet = get_option( "searchbox_result_tags_facet" );
-        $this->searchbox_result_category_facet = get_option( "searchbox_result_category_facet" );
-        $this->searchbox_result_author_facet = get_option( "searchbox_result_author_facet" );
+        $this->elasticsearch_result_tags_facet = get_option( "elasticsearch_result_tags_facet" );
+        $this->elasticsearch_result_category_facet = get_option( "elasticsearch_result_category_facet" );
+        $this->elasticsearch_result_author_facet = get_option( "elasticsearch_result_author_facet" );
 
         //misc.
         $this->plugin_url = plugins_url() . DIRECTORY_SEPARATOR . basename( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR;
@@ -79,22 +76,22 @@ class Wp_Searchbox_IO {
     //plugin init
     function on_plugin_init() {
         //Default plugin values
-        update_option( 'searchbox_result_category_facet', true );
-        update_option( 'searchbox_result_tags_facet', true );
-        update_option( 'searchbox_result_author_facet', true );
-        update_option( 'searchbox_settings_index_name', 'wordpress' );
-        update_option( 'searchbox_delete_post_on_remove', true );
-        update_option( 'searchbox_delete_post_on_unpublish', true );
+        update_option( 'elasticsearch_result_category_facet', true );
+        update_option( 'elasticsearch_result_tags_facet', true );
+        update_option( 'elasticsearch_result_author_facet', true );
+        update_option( 'elasticsearch_settings_index_name', 'wordpress' );
+        update_option( 'elasticsearch_delete_post_on_remove', true );
+        update_option( 'elasticsearch_delete_post_on_unpublish', true );
     }
 
     //admin menu option
     function on_admin_menu() {
         //add option page to settings menu on admin panel
         if (function_exists('add_menu_page')) {
-            $this->pagehook = add_menu_page( 'WPSearchboxIO Index/Search Manager', "WPSearchboxIO", 'administrator', basename( __FILE__ ),
-                array( &$this, 'on_show_page' ), $this->plugin_url . 'images/searchboxio.ico' );
+            $this->pagehook = add_menu_page( 'ElasticSearch Index/Search Manager', "ElasticSearch", 'administrator', basename( __FILE__ ),
+                array( &$this, 'on_show_page' ), $this->plugin_url . 'images/elasticsearch.ico' );
         } else {
-            $this->pagehook = add_options_page( 'WPSearchboxIO', "WPSearchboxIO", 'manage_options', 'WP-Searchbox-IO', array( &$this, 'on_show_page' ) );
+            $this->pagehook = add_options_page( 'ElasticSearch', "ElasticSearch", 'manage_options', 'ElasticSearch', array( &$this, 'on_show_page' ) );
         }
         //register  option page hook
         add_action( 'load-'.$this->pagehook, array( &$this, 'on_load_page' ) );
@@ -109,10 +106,10 @@ class Wp_Searchbox_IO {
         wp_enqueue_script('jquery-form');
 
         //configuration sections
-        add_meta_box('searchbox_server_configuration_section', 'Server Configurations', array(&$this, 'on_server_conf'), $this->pagehook, 'normal', 'core');
-        add_meta_box('searchbox_indexing_operation_section', 'Indexing Operations', array(&$this, 'on_indexing_operations_conf'), $this->pagehook, 'normal', 'core');
-        add_meta_box('searchbox_indexing_configuration_section', 'Indexing Configurations', array(&$this, 'on_indexing_conf'), $this->pagehook, 'normal', 'core');
-        add_meta_box('searchbox_search_result_configuration_section', 'Search Result Configurations', array(&$this, 'on_search_result_conf'), $this->pagehook, 'normal', 'core');
+        add_meta_box('elasticsearch_server_configuration_section', 'Server Configurations', array(&$this, 'on_server_conf'), $this->pagehook, 'normal', 'core');
+        add_meta_box('elasticsearch_indexing_operation_section', 'Indexing Operations', array(&$this, 'on_indexing_operations_conf'), $this->pagehook, 'normal', 'core');
+        add_meta_box('elasticsearch_indexing_configuration_section', 'Indexing Configurations', array(&$this, 'on_indexing_conf'), $this->pagehook, 'normal', 'core');
+        add_meta_box('elasticsearch_search_result_configuration_section', 'Search Result Configurations', array(&$this, 'on_search_result_conf'), $this->pagehook, 'normal', 'core');
     }
 
     //check permission and show admin panel option page
@@ -128,9 +125,8 @@ class Wp_Searchbox_IO {
     <div id="wp-searchbox-io" class="wrap">
         <style>.leftlabel{display:block;width:250px;float:left} .rightvalue{width:350px;} .checkwidth{width:25px;}</style>
         <?php screen_icon('options-general'); ?>
-        <h2>WP Searchbox IO</h2>
-        <p>WP Searchbox IO is a wordpress plugin that lets you index your entire website components by using <a href="http://www.elasticsearch.org/" target="_blank">elasticsearch</a>.
-            You can see detailed information about searchbox io <a href="https://searchbox.io/" target="_blank">here</a></p>
+        <h2>WP ElasticSearch</h2>
+        <p>WP ElasticSearch is a WordPress plugin that lets you index your entire website components by using <img src='<?php echo $this->plugin_url . "images/elasticsearch.ico"?>'/><a href="http://www.elasticsearch.org/" target="_blank">ElasticSearch</a>.</p>
         <div id="poststuff" class="metabox-holder<?php echo 2 == $screen_layout_columns ? ' has-right-sidebar' : ''; ?>">
             <div id="side-info-column" class="inner-sidebar">
                 <?php /*do_meta_boxes($this->pagehook, 'side', $data);*/ ?>
@@ -142,6 +138,7 @@ class Wp_Searchbox_IO {
             </div>
             <br class="clear"/>
         </div>
+        <p>This plugin developed by <img src='<?php echo $this->plugin_url . "images/searchbox_io.png"?>'/> <a href="http://www.searchbox.io/" target="_blank">SearchBox.io</a> cloud hosted ElasticSearch as service.</p>
     </div>
     <script type="text/javascript">
         //<![CDATA[
@@ -149,8 +146,8 @@ class Wp_Searchbox_IO {
             // close postboxes that should be closed
             $('.if-js-closed').removeClass('if-js-closed').addClass('closed');
             //Desired close sections
-            $('#searchbox_indexing_configuration_section').addClass('closed');
-            $('#searchbox_search_result_configuration_section').addClass('closed');
+            $('#elasticsearch_indexing_configuration_section').addClass('closed');
+            $('#elasticsearch_search_result_configuration_section').addClass('closed');
             // postboxes setup
             postboxes.add_postbox_toggles('<?php echo $this->pagehook; ?>');
 
@@ -163,45 +160,45 @@ class Wp_Searchbox_IO {
             url:			ajaxurl
         };
         // bind to the form's submit event
-        jQuery('#searchbox_form_server_settings').submit(function($){
-            var url = jQuery('#searchbox_settings_server').val();
-            var last_char = jQuery('#searchbox_settings_server').val().substr(jQuery('#searchbox_settings_server').val().length - 1);
+        jQuery('#elasticsearch_form_server_settings').submit(function($){
+            var url = jQuery('#elasticsearch_settings_server').val();
+            var last_char = jQuery('#elasticsearch_settings_server').val().substr(jQuery('#elasticsearch_settings_server').val().length - 1);
             if ( last_char != "/" ) {
-                url = jQuery('#searchbox_settings_server').val() + "/";
+                url = jQuery('#elasticsearch_settings_server').val() + "/";
             }
             jQuery(this).ajaxSubmit(options);
             checkServerStatusAjax(url);
             checkDocumentCountAjax(url);
             return false;
         });
-        jQuery('#searchbox_form_indexing_settings').submit(function(){
+        jQuery('#elasticsearch_form_indexing_settings').submit(function(){
             jQuery(this).ajaxSubmit(options);
             return false;
         });
-        jQuery('#searchbox_form_search_result_settings').submit(function(){
+        jQuery('#elasticsearch_form_search_result_settings').submit(function(){
             jQuery(this).ajaxSubmit(options);
             return false;
         });
-        jQuery('#searchbox_index_all_posts').submit(function(){
-            jQuery(this).ajaxSubmit(options);
-            //Put delay here, because it check document count while creating documents and it always returns zero
-            var s = setTimeout(function() {checkDocumentCountAjax(false);}, 1000);
-            return false;
-        });
-        jQuery('#searchbox_delete_all_posts').submit(function(){
+        jQuery('#elasticsearch_index_all_posts').submit(function(){
             jQuery(this).ajaxSubmit(options);
             //Put delay here, because it check document count while creating documents and it always returns zero
             var s = setTimeout(function() {checkDocumentCountAjax(false);}, 1000);
             return false;
         });
-        jQuery('#searchbox_server_check').submit(function(){
+        jQuery('#elasticsearch_delete_all_posts').submit(function(){
+            jQuery(this).ajaxSubmit(options);
+            //Put delay here, because it check document count while creating documents and it always returns zero
+            var s = setTimeout(function() {checkDocumentCountAjax(false);}, 1000);
+            return false;
+        });
+        jQuery('#elasticsearch_server_check').submit(function(){
             jQuery(this).ajaxSubmit(options);
             return false;
         });
-        jQuery('#searchbox_settings_server').blur(function(){
-            var last_char = jQuery('#searchbox_settings_server').val().substr(jQuery('#searchbox_settings_server').val().length - 1);
+        jQuery('#elasticsearch_settings_server').blur(function(){
+            var last_char = jQuery('#elasticsearch_settings_server').val().substr(jQuery('#elasticsearch_settings_server').val().length - 1);
             if ( last_char != "/" ) {
-                jQuery('#searchbox_settings_server').val(jQuery('#searchbox_settings_server').val() + "/" );
+                jQuery('#elasticsearch_settings_server').val(jQuery('#elasticsearch_settings_server').val() + "/" );
             }
         });
         // pre-submit callback
@@ -259,7 +256,7 @@ class Wp_Searchbox_IO {
     private function form_start( $form_id ) {
 
 		$html = '<form action="#" method="post" id="' . $form_id . '">' .
-		        '<input type="hidden" name="action" value="searchbox_option_update"/>' .
+		        '<input type="hidden" name="action" value="elasticsearch_option_update"/>' .
                 '<input type="hidden" name="section_type" value="' . $form_id . '"/>';
         echo $html;
     }
@@ -326,9 +323,9 @@ class Wp_Searchbox_IO {
     function on_server_conf() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model = new ModelPost();
-        $model->serverUrl = $this->searchbox_settings_server;
-        $this->form_start('searchbox_form_server_settings');
-        $this->form_component( "Elasticsearch server:", "text", "searchbox_settings_server", $this->searchbox_settings_server );
+        $model->serverUrl = $this->elasticsearch_settings_server;
+        $this->form_start('elasticsearch_form_server_settings');
+        $this->form_component( "Elasticsearch server:", "text", "elasticsearch_settings_server", $this->elasticsearch_settings_server );
         $this->custom_status( true );
         $this->custom_text( "Total Index Count:", "<span id='document-count-div' style='font-weight:bold;'>" . $model->checkIndexCount() . "</span>" );
         $this->form_end();
@@ -337,44 +334,44 @@ class Wp_Searchbox_IO {
     //indexing configuration section content
     function on_indexing_conf() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
-        $this->form_start('searchbox_form_indexing_settings');
-        $this->form_component( "Default Post Index Name:", "text", "searchbox_settings_index_name", ( ( strlen( $this->searchbox_settings_index_name ) < 1 ) ? ModelPost::$_TYPE : $this->searchbox_settings_index_name ) );
-        $this->form_component( "Delete Post Index on Remove: ", "checkbox", "searchbox_delete_post_on_remove", $this->searchbox_delete_post_on_remove );
-        $this->form_component( "Delete Post Index on Unpublish: ", "checkbox", "searchbox_delete_post_on_unpublish", $this->searchbox_delete_post_on_unpublish );
+        $this->form_start('elasticsearch_form_indexing_settings');
+        $this->form_component( "Default Post Index Name:", "text", "elasticsearch_settings_index_name", ( ( strlen( $this->elasticsearch_settings_index_name ) < 1 ) ? ModelPost::$_TYPE : $this->elasticsearch_settings_index_name ) );
+        $this->form_component( "Delete Post Index on Remove: ", "checkbox", "elasticsearch_delete_post_on_remove", $this->elasticsearch_delete_post_on_remove );
+        $this->form_component( "Delete Post Index on Unpublish: ", "checkbox", "elasticsearch_delete_post_on_unpublish", $this->elasticsearch_delete_post_on_unpublish );
         $this->form_end();
     }
 
     //search result configuration section content
     function on_search_result_conf() {
-        $this->form_start('searchbox_form_search_result_settings');
-        $this->form_component( "Category Facet: ", "checkbox", "searchbox_result_category_facet", $this->searchbox_result_category_facet );
-        $this->form_component( "Tag Facet: ", "checkbox", "searchbox_result_tags_facet", $this->searchbox_result_tags_facet );
-        $this->form_component( "Author Facet: ", "checkbox", "searchbox_result_author_facet", $this->searchbox_result_author_facet );
+        $this->form_start('elasticsearch_form_search_result_settings');
+        $this->form_component( "Category Facet: ", "checkbox", "elasticsearch_result_category_facet", $this->elasticsearch_result_category_facet );
+        $this->form_component( "Tag Facet: ", "checkbox", "elasticsearch_result_tags_facet", $this->elasticsearch_result_tags_facet );
+        $this->form_component( "Author Facet: ", "checkbox", "elasticsearch_result_author_facet", $this->elasticsearch_result_author_facet );
         $this->form_end();
     }
 
     //Some indexing operations on admin panel option page
     function on_indexing_operations_conf() {
-        $this->custom_buttons( "searchbox_index_all_posts", "Index All Posts" );
-        $this->custom_buttons( "searchbox_delete_all_posts", "Delete Documents" );
+        $this->custom_buttons( "elasticsearch_index_all_posts", "Index All Posts" );
+        $this->custom_buttons( "elasticsearch_delete_all_posts", "Delete Documents" );
     }
 
-    function searchbox_option_update() {
-        $options['searchbox_form_server_settings'] = array(
-            'searchbox_settings_server'
+    function elasticsearch_option_update() {
+        $options['elasticsearch_form_server_settings'] = array(
+            'elasticsearch_settings_server'
         );
-        $options['searchbox_form_indexing_settings'] = array(
-            'searchbox_delete_post_on_remove',
-            'searchbox_delete_post_on_unpublish',
-            'searchbox_settings_index_name'
+        $options['elasticsearch_form_indexing_settings'] = array(
+            'elasticsearch_delete_post_on_remove',
+            'elasticsearch_delete_post_on_unpublish',
+            'elasticsearch_settings_index_name'
         );
-        $options['searchbox_form_search_result_settings'] = array(
-            'searchbox_result_tags_facet',
-            'searchbox_result_category_facet',
-            'searchbox_result_author_facet'
+        $options['elasticsearch_form_search_result_settings'] = array(
+            'elasticsearch_result_tags_facet',
+            'elasticsearch_result_category_facet',
+            'elasticsearch_result_author_facet'
         );
 
-        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'searchbox_option_update' ) {
+        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'elasticsearch_option_update' ) {
             foreach ( $options[$_POST['section_type']] as $section_field ) {
                 $option_value = false;
                 if ( array_key_exists( $section_field, $_POST ) ) {
@@ -395,16 +392,16 @@ class Wp_Searchbox_IO {
     /**
      * Index all pages ajax
      */
-    function searchbox_index_all_posts() {
+    function elasticsearch_index_all_posts() {
         $document_count = 0;
-        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'searchbox_index_all_posts' ) {
+        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'elasticsearch_index_all_posts' ) {
             $count_posts = wp_count_posts();
             if ( $count_posts->publish < 1 ) {
                 echo "<div class='error fade'>" . __( 'There is no document to index' ) . "</div>";
                 die;
             }
-            if ( !$this->check_server_status( get_option( 'searchbox_settings_server' ) ) ) {
-                echo "<div class='error fade'>" . __( 'Couldn\'t connect to elasticsearch server: ' . get_option( 'searchbox_settings_server' ) ) . "</div>";
+            if ( !$this->check_server_status( get_option( 'elasticsearch_settings_server' ) ) ) {
+                echo "<div class='error fade'>" . __( 'Couldn\'t connect to elasticsearch server: ' . get_option( 'elasticsearch_settings_server' ) ) . "</div>";
                 die;
             }
             $document_count = $this->index_all_posts();
@@ -413,8 +410,8 @@ class Wp_Searchbox_IO {
         die;
     }
 
-    function searchbox_delete_all_posts() {
-        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'searchbox_delete_all_posts' ) {
+    function elasticsearch_delete_all_posts() {
+        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'elasticsearch_delete_all_posts' ) {
             try {
                 $this->delete_all_posts();
             } catch(Exception $e) {
@@ -429,13 +426,13 @@ class Wp_Searchbox_IO {
     /**
      * Check server status ajax
      */
-    function searchbox_check_server_status() {
+    function elasticsearch_check_server_status() {
         $ret = false;
         if ( !empty( $_POST['action'] ) && $_POST['action'] == 'check_server_status' ) {
             if ( $_POST['url'] !== 'false' ) {
                 $ret = $this->check_server_status( $_POST['url'] );
             } else {
-                $ret = $this->check_server_status( get_option( 'searchbox_settings_server' ) );
+                $ret = $this->check_server_status( get_option( 'elasticsearch_settings_server' ) );
             }
         }
         echo json_encode($ret);
@@ -445,13 +442,13 @@ class Wp_Searchbox_IO {
     /**
      * Check server status ajax
      */
-    function searchbox_check_document_count() {
+    function elasticsearch_check_document_count() {
         $ret = false;
         if ( !empty( $_POST['action'] ) && $_POST['action'] == 'check_document_count' ) {
             if ( $_POST['url'] !== 'false' ) {
                 $ret = $this->check_document_count( $_POST['url'] );
             } else {
-                $ret = $this->check_document_count( get_option( 'searchbox_settings_server' ) );
+                $ret = $this->check_document_count( get_option( 'elasticsearch_settings_server' ) );
             }
         }
         echo json_encode($ret);
@@ -477,7 +474,7 @@ class Wp_Searchbox_IO {
         }
 
         if ($post->post_status != 'publish') {
-            if ( get_option( 'searchbox_delete_post_on_unpublish' ) ) {
+            if ( get_option( 'elasticsearch_delete_post_on_unpublish' ) ) {
                 $this->delete_post( $post_id );
             }
         } else {
@@ -498,9 +495,9 @@ class Wp_Searchbox_IO {
 
             //get author info
             $user_info = get_userdata( $post->post_author );
-            $model_post = new ModelPost($post, $tags, $url, $cats, $user_info->user_login, get_option( 'searchbox_settings_server' ) );
+            $model_post = new ModelPost($post, $tags, $url, $cats, $user_info->user_login, get_option( 'elasticsearch_settings_server' ) );
             $model_post->documentPrefix = ModelPost::$_PREFIX;
-            $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
+            $model_post->documentIndex = get_option( 'elasticsearch_settings_index_name' );
             $model_post->index();
         }
     }
@@ -511,9 +508,9 @@ class Wp_Searchbox_IO {
      */
     function delete_post( $post_id ) {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
-        if ( get_option( "searchbox_delete_post_on_remove" ) ) {
-            $model_post = new ModelPost( null, null, null, null, null, get_option( 'searchbox_settings_server' ) );
-            $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
+        if ( get_option( "elasticsearch_delete_post_on_remove" ) ) {
+            $model_post = new ModelPost( null, null, null, null, null, get_option( 'elasticsearch_settings_server' ) );
+            $model_post->documentIndex = get_option( 'elasticsearch_settings_index_name' );
             $model_post->delete(ModelPost::$_PREFIX . $post_id);
         }
     }
@@ -521,15 +518,15 @@ class Wp_Searchbox_IO {
     /**
      * Loads specified theme of plugin
      */
-    function searchbox_theme_css() {
-        $name = "style-searchbox.css";
+    function elasticsearch_theme_css() {
+        $name = "style-elasticsearch.css";
         $css_file = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . "wp-elasticsearch" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . $name;
         if ( false !== @file_exists( $css_file ) ) {
             $css = $this->plugin_url . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . $name;
         } else {
             $css = false;
         }
-        wp_enqueue_style( 'style-searchbox', $css, false, $this->version, 'screen' );
+        wp_enqueue_style( 'style-elasticsearch', $css, false, $this->version, 'screen' );
     }
     /**
      * Handles wp search
@@ -552,8 +549,8 @@ class Wp_Searchbox_IO {
     function index_all_posts() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model_post = new ModelPost();
-        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
-        $model_post->serverUrl = get_option( 'searchbox_settings_server' );
+        $model_post->documentIndex = get_option( 'elasticsearch_settings_index_name' );
+        $model_post->serverUrl = get_option( 'elasticsearch_settings_server' );
         if ($model_post->checkIndexExists() != 200) {
             $model_post->createIndexName();
         }
@@ -595,9 +592,9 @@ class Wp_Searchbox_IO {
         }
 
         $model_post->buildIndexDataBulk( $post_data );
-        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
+        $model_post->documentIndex = get_option( 'elasticsearch_settings_index_name' );
         $model_post->documentPrefix = ModelPost::$_PREFIX;
-        $model_post->serverUrl = get_option( 'searchbox_settings_server' );
+        $model_post->serverUrl = get_option( 'elasticsearch_settings_server' );
         $model_post->checkIndexExists();
         $model_post->index(true);
         return $document_count;
@@ -607,15 +604,15 @@ class Wp_Searchbox_IO {
 
     function delete_all_posts() {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
-        $model_post = new ModelPost( null, null, null, null, null, get_option( 'searchbox_settings_server' ) );
-        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
+        $model_post = new ModelPost( null, null, null, null, null, get_option( 'elasticsearch_settings_server' ) );
+        $model_post->documentIndex = get_option( 'elasticsearch_settings_index_name' );
         $model_post->deleteAll();
     }
 
     function check_server_status( $url ) {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model_post = new ModelPost();
-        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
+        $model_post->documentIndex = get_option( 'elasticsearch_settings_index_name' );
         $model_post->serverUrl = $url;
         return $model_post->checkServerStatus();
     }
@@ -623,7 +620,7 @@ class Wp_Searchbox_IO {
     function check_document_count( $url ) {
         require_once( "lib" . DIRECTORY_SEPARATOR . "ModelPost.php" );
         $model_post = new ModelPost();
-        $model_post->documentIndex = get_option( 'searchbox_settings_index_name' );
+        $model_post->documentIndex = get_option( 'elasticsearch_settings_index_name' );
         $model_post->serverUrl = $url;
         return $model_post->checkIndexCount();
     }
@@ -642,15 +639,15 @@ class Wp_Searchbox_IO {
             }
             $limit = 4;
             require_once( "lib" . DIRECTORY_SEPARATOR . "Searcher.php" );
-            $searcher = new Searcher( get_option( 'searchbox_settings_server' ) );
+            $searcher = new Searcher( get_option( 'elasticsearch_settings_server' ) );
             $facetArr = array();
-            if ( get_option( 'searchbox_result_category_facet' ) ) {
+            if ( get_option( 'elasticsearch_result_category_facet' ) ) {
                 array_push( $facetArr, 'cats' );
             }
-            if ( get_option( 'searchbox_result_tags_facet' ) ) {
+            if ( get_option( 'elasticsearch_result_tags_facet' ) ) {
                 array_push( $facetArr, 'tags' );
             }
-            if ( get_option( 'searchbox_result_author_facet' ) ) {
+            if ( get_option( 'elasticsearch_result_author_facet' ) ) {
                 array_push( $facetArr, 'author' );
             }
             $page = get_query_var( 'paged' );
@@ -660,9 +657,9 @@ class Wp_Searchbox_IO {
             }
 
             //In order to use search for specfic index type, give that type to 6th parameter
-            $search_results = $searcher->search( $_GET , $facetArr, $offset, $this->per_page, get_option( 'searchbox_settings_index_name' ), false );
+            $search_results = $searcher->search( $_GET , $facetArr, $offset, $this->per_page, get_option( 'elasticsearch_settings_index_name' ), false );
 
-            $search_result_count = $searcher->search( $_GET , $facetArr, false, false, get_option( 'searchbox_settings_index_name' ), false )->count();
+            $search_result_count = $searcher->search( $_GET , $facetArr, false, false, get_option( 'elasticsearch_settings_index_name' ), false )->count();
 
             $elasticsearch_post_ids = array();
             $records = $search_results->getResults();
@@ -700,8 +697,8 @@ class Wp_Searchbox_IO {
 }
 
 //create an instance of plugin
-if ( class_exists( 'Wp_Searchbox_IO' ) ) {
-    if ( !isset( $wp_searchbox_io ) ) {
-        $wp_searchbox_io = new Wp_Searchbox_IO;
+if ( class_exists( 'Wp_ElasticSearch' ) ) {
+    if ( !isset( $wp_elasticsearch ) ) {
+        $wp_elasticsearch = new Wp_ElasticSearch;
     }
 }
