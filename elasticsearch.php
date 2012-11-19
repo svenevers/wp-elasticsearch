@@ -528,20 +528,6 @@ class Wp_ElasticSearch {
         }
         wp_enqueue_style( 'style-elasticsearch', $css, false, $this->version, 'screen' );
     }
-    /**
-     * Handles wp search
-     */
-    function search_term() {
-        if ( is_search() && !empty( $_GET['s'] ) ) {
-            // If there is a template file then we use it
-            if ( file_exists( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'search_result_page.php' ) ) {
-                // use plugin supplied file
-                include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'search_result_page.php' );
-            } else {
-                return;
-            }
-        }
-    }
 
     /**
      * Indexes all post
