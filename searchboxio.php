@@ -694,6 +694,7 @@ class Wp_Searchbox_IO {
         }
         global $wp_query;
         $wp_query->max_num_pages = ceil( $this->total_num_results / $this->per_page );
+        $wp_query->found_posts = $this->total_num_results;
         return $posts;
     }
 }
