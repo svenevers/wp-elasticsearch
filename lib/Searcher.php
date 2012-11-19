@@ -35,6 +35,7 @@ class Searcher
         // Define a Query. We want a string query.
         $elasticaQueryString = new Elastica_Query_QueryString();
         $elasticaQueryString->setQuery($query);
+        $elasticaQueryString->setFields(array('title', 'content'));
 
         $elasticaFilterAnd 	= new Elastica_Filter_And();
 
