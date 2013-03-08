@@ -41,7 +41,7 @@ class Searcher
         if (!empty($tagTerm)) {
             $tagTermArr = explode(",", $tagTerm);
             $filterTag	= new Elastica_Filter_Terms();
-            $filterTag->setTerms('tags', $tagTermArr);
+            $filterTag->setTerms('tag', $tagTermArr);
             $elasticaFilterAnd->addFilter($filterTag);
         }
 
@@ -55,7 +55,7 @@ class Searcher
         if (!empty($catTerm)) {
             $catTermArr = explode(",", $catTerm);
             $filterCat	= new Elastica_Filter_Terms();
-            $filterCat->setTerms('cats', $catTermArr);
+            $filterCat->setTerms('cat', $catTermArr);
             $elasticaFilterAnd->addFilter($filterCat);
         }
 
