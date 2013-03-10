@@ -3,8 +3,8 @@
     Plugin Name: Wp-ElasticSearch
     Plugin URI: http://www.searchbox.io
     Description: Index your WordPress site with ElasticSearch.
-    Version: 1.0
-    Author: Hüseyin BABAL
+    Version: 1.0.1
+    Author: Hüseyin BABAL, Ferhat SOBAY
     Author URI: http://www.searchbox.io
     Tags: elasticsearch, index
 */
@@ -44,7 +44,8 @@ class Wp_ElasticSearch
         add_action('wp_ajax_elasticsearch_delete_all_posts', array(&$this, 'elasticsearch_delete_all_posts'));
         add_action('wp_ajax_check_server_status', array(&$this, 'elasticsearch_check_server_status'));
         add_action('wp_ajax_check_document_count', array(&$this, 'elasticsearch_check_document_count'));
-        add_action('wp_print_styles', array(&$this, 'elasticsearch_theme_css'));
+        //add_action('wp_print_styles', array(&$this, 'elasticsearch_theme_css'));
+        add_action('wp_enqueue_scripts', array($this, 'init_scripts'));
         register_activation_hook(__FILE__, array(&$this, 'on_plugin_init'));
         if (!is_search()) {
             add_action('widgets_init', create_function('', 'register_widget("elasticsearch_facet_widget");'));
@@ -57,6 +58,8 @@ class Wp_ElasticSearch
         add_action('delete_post', array(&$this, 'delete_post'));
         add_action('trash_post', array(&$this, 'delete_post'));
         //add_action( 'template_redirect', array( &$this, 'search_term') );
+        add_action('wp_ajax_autocomplete_callback', array($this, 'autocomplete_callback'));
+        add_action('wp_ajax_nopriv_autocomplete_callback', array($this, 'autocomplete_callback'));
 
         //server settings
         $this->elasticsearch_settings_server = get_option("elasticsearch_settings_server");
@@ -564,18 +567,21 @@ class Wp_ElasticSearch
     }
 
     /**
-     * Loads specified theme of plugin
+     * Loads required scripts
      */
-    function elasticsearch_theme_css()
+    function init_scripts()
     {
-        $name = "style-elasticsearch.css";
-        $css_file = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . "wp-elasticsearch" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . $name;
-        if (false !== @file_exists($css_file)) {
-            $css = $this->plugin_url . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . $name;
-        } else {
-            $css = false;
-        }
-        wp_enqueue_style('style-elasticsearch', $css, false, $this->version, 'screen');
+        $localVars = array(
+            'ajaxurl' => admin_url('admin-ajax.php')
+        );
+
+        wp_enqueue_script('SearchAutocomplete', plugins_url('js/search-autocomplete.js', __FILE__), array('jquery-ui-autocomplete'), '1.0.0', true);
+        wp_localize_script('SearchAutocomplete', 'SearchAutocomplete', $localVars);
+
+        wp_enqueue_style('plugin_name-admin-ui-css',
+            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.all.css',
+            false,
+            false);
     }
 
     /**
@@ -721,7 +727,6 @@ class Wp_ElasticSearch
 
     public function get_search_result_posts($posts)
     {
-
         if (!is_search()) {
             return $posts;
         }
@@ -732,6 +737,15 @@ class Wp_ElasticSearch
         $wp_query->max_num_pages = ceil($this->total_num_results / $this->per_page);
         $wp_query->found_posts = $this->total_num_results;
         return $posts;
+    }
+
+    public function autocomplete_callback()
+    {
+        $query = sanitize_text_field($_GET['query']);
+        require_once("lib" . DIRECTORY_SEPARATOR . "Searcher.php");
+        $searcher = new Searcher(get_option('elasticsearch_settings_server'));
+        $searcher->auto_complete_query($query, get_option('elasticsearch_settings_index_name'));
+        die();
     }
 }
 

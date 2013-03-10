@@ -192,12 +192,13 @@ abstract class ModelBase
                             "fields": {
                                 "title": {
                                     "type": "string",
-                                    "_boost" : 2.0
+                                    "_boost" : 3.0,
+                                    "store" : "yes"
                                 },
                                 "autocomplete": {
                                     "analyzer": "autocomplete",
                                     "type": "string",
-                                    "_boost" : 2.0
+                                    "_boost" : 3.0
                                 }
                             }
                         },

@@ -33,28 +33,28 @@ class Searcher
         $elasticaQueryString->setQuery($query);
         $elasticaQueryString->setFields(array('title', 'content'));
 
-        $elasticaFilterAnd 	= new Elastica_Filter_And();
+        $elasticaFilterAnd = new Elastica_Filter_And();
 
         $tagTerm = $global_query['tags'];
         $authorTerm = $global_query['author'];
         $catTerm = $global_query['cats'];
         if (!empty($tagTerm)) {
             $tagTermArr = explode(",", $tagTerm);
-            $filterTag	= new Elastica_Filter_Terms();
+            $filterTag = new Elastica_Filter_Terms();
             $filterTag->setTerms('tag', $tagTermArr);
             $elasticaFilterAnd->addFilter($filterTag);
         }
 
         if (!empty($authorTerm)) {
             $authorTermArr = explode(",", $authorTerm);
-            $filterAuthor	= new Elastica_Filter_Terms();
+            $filterAuthor = new Elastica_Filter_Terms();
             $filterAuthor->setTerms('author', $authorTermArr);
             $elasticaFilterAnd->addFilter($filterAuthor);
         }
 
         if (!empty($catTerm)) {
             $catTermArr = explode(",", $catTerm);
-            $filterCat	= new Elastica_Filter_Terms();
+            $filterCat = new Elastica_Filter_Terms();
             $filterCat->setTerms('cat', $catTermArr);
             $elasticaFilterAnd->addFilter($filterCat);
         }
@@ -108,5 +108,28 @@ class Searcher
             $search_query[$query_split[0]] = urldecode($query_split[1]);
         }
         return $search_query[$type];
+    }
+
+    /**
+     * Auto complete query
+     */
+    function auto_complete_query($query, $indexName)
+    {
+        $url = $this->elasticsearch_server_url . $this->$indexName . '/_search';
+        $body = '{ "fields": [ "title" ], "query": { "multi_match": { "query": "' . $query . '", "fields": [ "title.autocomplete", "content.autocomplete" ] } } }';
+        return $this->executeRequest(array(CURLOPT_URL => $url, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => $body));
+    }
+
+    /**
+     * @param array $opts
+     * @return mixed
+     */
+    function executeRequest(array $opts)
+    {
+        $ch = curl_init();
+        curl_setopt_array($ch, $opts);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
     }
 }
