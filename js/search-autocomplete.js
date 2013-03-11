@@ -1,7 +1,7 @@
 (function($) {
 	$(function() {
 		var options = $.extend({
-			'fieldName': '#s',
+			'fieldName': 'input[name=s]',
 			'maxRows': 10,
 			'minLength': 4,
 		}, SearchAutocomplete);
@@ -34,7 +34,7 @@
 			create: function() {
 			},
 			select: function( event, ui ) {
-                window.location = "http://localhost/wordpress?s=" +  ui.item.value;
+                window.location = "?s=" +  ui.item.value;
 			},
 			open: function(event, ui) {
 				$(event.target).removeClass('sa_searching');
