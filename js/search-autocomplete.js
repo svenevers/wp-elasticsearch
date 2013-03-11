@@ -3,7 +3,7 @@
 		var options = $.extend({
 			'fieldName': 'input[name=s]',
 			'maxRows': 10,
-			'minLength': 4,
+			'minLength': 3,
 		}, SearchAutocomplete);
 		$(options.fieldName).autocomplete({
 			source: function( request, response ) {
@@ -27,7 +27,7 @@
 			        }
 			    });
 			},
-			minLength: 3,
+			minLength: options.minLength,
 			search: function(event, ui) {
 				$(event.currentTarget).addClass('sa_searching');
 			},
