@@ -165,18 +165,10 @@ abstract class ModelBase
                             "index": "not_analyzed"
                         },
                         "content": {
-                            "type": "multi_field",
-                            "fields": {
-                                "content": {
-                                    "type": "string",
-                                    "_boost" : 1.0
-                                },
-                                "autocomplete": {
-                                    "analyzer": "autocomplete",
-                                    "type": "string",
-                                    "_boost" : 1.0
-                                }
-                            }
+                            "type": "string",
+                            "analyzer": "autocomplete",
+                            "type": "string",
+                            "_boost" : 1.0
                         },
                         "date": {
                             "index": "not_analyzed",
@@ -188,19 +180,10 @@ abstract class ModelBase
                             "type": "string"
                         },
                         "title": {
-                            "type": "multi_field",
-                            "fields": {
-                                "title": {
-                                    "type": "string",
-                                    "_boost" : 3.0,
-                                    "store" : "yes"
-                                },
-                                "autocomplete": {
-                                    "analyzer": "autocomplete",
-                                    "type": "string",
-                                    "_boost" : 3.0
-                                }
-                            }
+                            "analyzer": "autocomplete",
+                            "type": "string",
+                            "_boost" : 3.0,
+                            "store" : "yes"
                         },
                         "uri": {
                             "type": "string",
