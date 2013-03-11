@@ -166,8 +166,6 @@ abstract class ModelBase
                         },
                         "content": {
                             "type": "string",
-                            "analyzer": "autocomplete",
-                            "type": "string",
                             "_boost" : 1.0
                         },
                         "date": {

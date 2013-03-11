@@ -27,7 +27,7 @@ class Searcher
     function search($query, $facets = array(), $offset = false, $limit = false, $indexName = false, $indexType = false)
     {
         $global_query = $query;
-        $query = $global_query['s'];
+        $query = preg_replace("/[^a-zA-Z 0-9]+/", "", $global_query['s']);
         // Define a Query. We want a string query.
         $elasticaQueryString = new Elastica_Query_QueryString();
         $elasticaQueryString->setQuery($query);
@@ -116,7 +116,7 @@ class Searcher
     function auto_complete_query($query, $indexName)
     {
         $url = $this->elasticsearch_server_url . $this->$indexName . '/_search';
-        $body = '{ "fields": [ "title" ], "query": { "multi_match": { "query": "' . $query . '", "fields": [ "title", "content" ] } } }';
+        $body = '{ "fields": [ "title" ], "query": { "multi_match": { "query": "' . $query . '", "fields": [ "title" ] } } }';
         return $this->executeRequest(array(CURLOPT_URL => $url, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => $body));
     }
 
