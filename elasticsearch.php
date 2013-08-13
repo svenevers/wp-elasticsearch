@@ -601,7 +601,9 @@ class Wp_ElasticSearch
             'ajaxurl' => admin_url('admin-ajax.php')
         );
 
-        wp_enqueue_script('SearchAutocomplete', plugins_url('js/search-autocomplete.js', __FILE__), array('jquery-ui-autocomplete'), '1.0.0', true);
+        $pluginName = basename(dirname(__FILE__));
+
+        wp_enqueue_script('SearchAutocomplete', plugins_url($pluginName . '/js/search-autocomplete.js'), array('jquery-ui-autocomplete'), '1.0.0', true);
         wp_localize_script('SearchAutocomplete', 'SearchAutocomplete', $localVars);
 
         wp_enqueue_style('plugin_name-admin-ui-css',
