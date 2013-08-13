@@ -25,6 +25,9 @@ class Wp_ElasticSearch
     var $elasticsearch_result_category_facet;
     var $elasticsearch_result_author_facet;
 
+    // autocomplete settings
+    var $elasticsearch_autocomplete_enabled;
+
     //misc.
     var $version = '1.0';
     var $plugin_url = '';
@@ -74,6 +77,9 @@ class Wp_ElasticSearch
         $this->elasticsearch_result_category_facet = get_option("elasticsearch_result_category_facet");
         $this->elasticsearch_result_author_facet = get_option("elasticsearch_result_author_facet");
 
+        // Autocomplete settings
+        $this->elasticsearch_autocomplete_enabled = get_option("elasticsearch_autocomplete_enabled");
+
         //misc.
         $this->plugin_url = plugins_url() . DIRECTORY_SEPARATOR . basename(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
     }
@@ -88,6 +94,7 @@ class Wp_ElasticSearch
         update_option('elasticsearch_settings_index_name', 'wordpress');
         update_option('elasticsearch_delete_post_on_remove', true);
         update_option('elasticsearch_delete_post_on_unpublish', true);
+        update_option('elasticsearch_autocomplete_enabled', true);
     }
 
     //admin menu option
@@ -118,6 +125,7 @@ class Wp_ElasticSearch
         add_meta_box('elasticsearch_indexing_operation_section', 'Indexing Operations', array(&$this, 'on_indexing_operations_conf'), $this->pagehook, 'normal', 'core');
         add_meta_box('elasticsearch_indexing_configuration_section', 'Indexing Configurations', array(&$this, 'on_indexing_conf'), $this->pagehook, 'normal', 'core');
         add_meta_box('elasticsearch_search_result_configuration_section', 'Search Result Configurations', array(&$this, 'on_search_result_conf'), $this->pagehook, 'normal', 'core');
+        add_meta_box('elasticsearch_autocomplete_configuration_section', 'Autocomplete Configurations', array(&$this, 'on_autocomplete_conf'), $this->pagehook, 'normal', 'core');
     }
 
     //check permission and show admin panel option page
@@ -204,6 +212,10 @@ class Wp_ElasticSearch
             return false;
         });
         jQuery('#elasticsearch_form_search_result_settings').submit(function () {
+            jQuery(this).ajaxSubmit(options);
+            return false;
+        });
+        jQuery('#elasticsearch_form_autocomplete_settings').submit(function () {
             jQuery(this).ajaxSubmit(options);
             return false;
         });
@@ -393,6 +405,13 @@ class Wp_ElasticSearch
         $this->form_end();
     }
 
+    function on_autocomplete_conf()
+    {
+        $this->form_start('elasticsearch_form_autocomplete_settings');
+        $this->form_component("Enable Autocomplete: ", "checkbox", "elasticsearch_autocomplete_enabled", $this->elasticsearch_autocomplete_enabled);
+        $this->form_end();
+    }
+
     //Some indexing operations on admin panel option page
     function on_indexing_operations_conf()
     {
@@ -414,6 +433,9 @@ class Wp_ElasticSearch
             'elasticsearch_result_tags_facet',
             'elasticsearch_result_category_facet',
             'elasticsearch_result_author_facet'
+        );
+        $options['elasticsearch_form_autocomplete_settings'] = array(
+            'elasticsearch_autocomplete_enabled'
         );
 
         if (!empty($_POST['action']) && $_POST['action'] == 'elasticsearch_option_update') {
@@ -571,6 +593,10 @@ class Wp_ElasticSearch
      */
     function init_scripts()
     {
+        if (!get_option('elasticsearch_autocomplete_enabled')) {
+            return;
+        }
+
         $localVars = array(
             'ajaxurl' => admin_url('admin-ajax.php')
         );
