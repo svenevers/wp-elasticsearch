@@ -633,7 +633,15 @@ class Wp_ElasticSearch
         );
         $posts = get_posts($args);
         $document_count = 0;
+        // Required for setup_postdata to work
+        global $post;
         foreach ($posts as $post) {
+            // Set post data
+            setup_postdata($post);
+
+            // Process shortcodes
+            $post->post_content = do_shortcode($post->post_content);
+
             //tags
             $tags = get_the_tags($post->ID);
 
