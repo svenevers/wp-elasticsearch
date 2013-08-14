@@ -115,8 +115,8 @@ class Searcher
      */
     function auto_complete_query($query, $indexName)
     {
-        $url = $this->elasticsearch_server_url . $this->$indexName . '/_search';
-        $body = '{ "fields": [ "title" ], "query": { "multi_match": { "query": "' . $query . '", "fields": [ "title" ] } } }';
+        $url = $this->elasticsearch_server_url . $indexName . '/_search';
+        $body = '{ "fields": [ "title" ], "query": { "multi_match": { "query": "' . $query . '", "fields": [ "title", "content" ] } } }';
         return $this->executeRequest(array(CURLOPT_URL => $url, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => $body));
     }
 
