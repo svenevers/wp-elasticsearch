@@ -64,15 +64,36 @@ class ElasticSearch_Facet_Widget extends WP_Widget {
                 <?php endif; ?>
             <?php endif; ?>
 
+            <?php if ( ( get_option( 'elasticsearch_result_date_facet' ) ) ): ?>
+            <?php if ( !empty( $elasticaFacets['date'])  ): ?>
+                <!-- Date -->
+                    <h5>Date</h5>
+                    <ul>
+                            <input type="date" name="facet-datefrom" value="<?php echo ( empty( $_GET['datefrom'] ) ) ? '' : $_GET['datefrom'];?>" id="datefrom" class="date" />
+                            <label for="datefrom" class="facet-search-link">From</label>
+                            <input type="date" name="facet-dateto" value="<?php echo ( empty( $_GET['dateto'] ) ) ? '' : $_GET['dateto'];?>" id="dateto" class="date"  />
+                            <label for="datefrom" class="facet-search-link">To</label>
+                    </ul>
+                    <a href="#" onclick="event.preventDefault(); searchlink('date')">Filter</a>
+                <?php endif; ?>
+            <?php endif; ?>
+
         <form name="search-form-hidden" id="search-form-hidden" action="<?php echo site_url(); ?>">
             <input type="hidden" name="s" id="searchbox-s" value="<?php echo ( empty( $_GET['s'] ) ) ? '' : $_GET['s']; ?>"/>
             <input type="hidden" name="tags" id="searchbox-tags" value="<?php echo ( empty( $_GET['tags'] ) ) ? '' : $_GET['tags'];?>"/>
             <input type="hidden" name="cats" id="searchbox-cats" value="<?php echo ( empty( $_GET['cats'] ) ) ? '' : $_GET['cats'];?>"/>
+            <input type="hidden" name="datefrom" id="searchbox-datefrom" value="<?php echo ( empty( $_GET['datefrom'] ) ) ? '' : $_GET['datefrom'];?>"/>
+            <input type="hidden" name="dateto" id="searchbox-dateto" value="<?php echo ( empty( $_GET['dateto'] ) ) ? '' : $_GET['dateto'];?>"/>
             <input type="hidden" name="author" id="searchbox-author" value="<?php echo ( empty( $_GET['author'] ) ) ? '' : $_GET['author'];?>"/>
         </form>
         <script type="text/javascript">
             //<![CDATA[
                 function searchlink(element) {
+                    if (element  == 'date') {
+                        document.getElementById("searchbox-datefrom").value = document.getElementById("datefrom").value
+                        document.getElementById("searchbox-dateto").value = document.getElementById("dateto").value
+                        document.forms["search-form-hidden"].submit();
+                    } else {
                     var checkboxes = document.body.getElementsByClassName(element);
                     var checkArr = new Array();
                     var tempCheckArr = new Array();
@@ -86,6 +107,7 @@ class ElasticSearch_Facet_Widget extends WP_Widget {
                     }
                     document.getElementById("searchbox-" + element).value = checkArr.join(",");
                     document.forms["search-form-hidden"].submit();
+                    }
                 }
             //]]>
         </script>

@@ -24,6 +24,7 @@ class Wp_ElasticSearch
     var $elasticsearch_result_tags_facet;
     var $elasticsearch_result_category_facet;
     var $elasticsearch_result_author_facet;
+    var $elasticsearch_result_date_facet;
 
     // autocomplete settings
     var $elasticsearch_autocomplete_enabled;
@@ -76,6 +77,8 @@ class Wp_ElasticSearch
         $this->elasticsearch_result_tags_facet = get_option("elasticsearch_result_tags_facet");
         $this->elasticsearch_result_category_facet = get_option("elasticsearch_result_category_facet");
         $this->elasticsearch_result_author_facet = get_option("elasticsearch_result_author_facet");
+        $this->elasticsearch_result_date_facet = get_option("elasticsearch_result_date_facet");
+
 
         // Autocomplete settings
         $this->elasticsearch_autocomplete_enabled = get_option("elasticsearch_autocomplete_enabled");
@@ -91,6 +94,7 @@ class Wp_ElasticSearch
         update_option('elasticsearch_result_category_facet', true);
         update_option('elasticsearch_result_tags_facet', true);
         update_option('elasticsearch_result_author_facet', true);
+        update_option('elasticsearch_result_date_facet', true);
         update_option('elasticsearch_settings_index_name', 'wordpress');
         update_option('elasticsearch_delete_post_on_remove', true);
         update_option('elasticsearch_delete_post_on_unpublish', true);
@@ -402,6 +406,7 @@ class Wp_ElasticSearch
         $this->form_component("Category Facet: ", "checkbox", "elasticsearch_result_category_facet", $this->elasticsearch_result_category_facet);
         $this->form_component("Tag Facet: ", "checkbox", "elasticsearch_result_tags_facet", $this->elasticsearch_result_tags_facet);
         $this->form_component("Author Facet: ", "checkbox", "elasticsearch_result_author_facet", $this->elasticsearch_result_author_facet);
+        $this->form_component("Date Range Facet: ", "checkbox", "elasticsearch_result_date_facet", $this->elasticsearch_result_date_facet);
         $this->form_end();
     }
 
@@ -731,6 +736,9 @@ class Wp_ElasticSearch
                 }
                 if (get_option('elasticsearch_result_author_facet')) {
                     array_push($facetArr, 'author');
+                }
+                if (get_option('elasticsearch_result_date_facet')) {
+                    array_push($facetArr, 'date');
                 }
                 $page = get_query_var('paged');
                 $offset = 0;
