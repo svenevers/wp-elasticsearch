@@ -65,8 +65,8 @@ class Searcher
 
         if (!empty($dateFrom) && !empty($dateTo)) {
             $filterDate = new Elastica_Filter_Range('date', array(
-                    'from' => strftime('%F %R', strtotime($dateFrom)),
-                    'to' => strftime('%F %R', strtotime($dateTo))
+                    'from' => strftime('%F %T', strtotime($dateFrom)),
+                    'to' => strftime('%F %T', strtotime($dateTo))
                 ));  
              // $dates = new Elastica_Filter_Terms();
              // $dates->setTerms('date', array($dateFrom." -> ".$dateTo));
@@ -88,9 +88,7 @@ class Searcher
         if ($limit) {
             $elasticaQuery->setLimit($limit);
         }
-        echo "<pre>";
-        print_r($elasticaQuery->toArray());
-        echo "</pre>";
+
 
         //Check facet fields
         if (!empty($facets)) {

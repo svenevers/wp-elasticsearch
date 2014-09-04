@@ -608,7 +608,7 @@ class Wp_ElasticSearch
 
         $pluginName = basename(dirname(__FILE__));
 
-        wp_enqueue_script('SearchAutocomplete', plugins_url($pluginName . '/js/search-autocomplete.js'), array('jquery-ui-autocomplete'), '1.0.0', true);
+        wp_enqueue_script('SearchAutocomplete', plugins_url($pluginName . '/js/search.js'), array('jquery-ui-autocomplete','jquery-ui-datepicker'), '1.0.0', true);
         wp_localize_script('SearchAutocomplete', 'SearchAutocomplete', $localVars);
 
         wp_enqueue_style('plugin_name-admin-ui-css',

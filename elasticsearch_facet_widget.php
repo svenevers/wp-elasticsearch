@@ -69,12 +69,13 @@ class ElasticSearch_Facet_Widget extends WP_Widget {
                 <!-- Date -->
                     <h5>Date</h5>
                     <ul>
-                            <input type="date" name="facet-datefrom" value="<?php echo ( empty( $_GET['datefrom'] ) ) ? '' : $_GET['datefrom'];?>" id="datefrom" class="date" />
                             <label for="datefrom" class="facet-search-link">From</label>
-                            <input type="date" name="facet-dateto" value="<?php echo ( empty( $_GET['dateto'] ) ) ? '' : $_GET['dateto'];?>" id="dateto" class="date"  />
+                            <input type="date" name="facet-datefrom" value="<?php echo ( empty( $_GET['datefrom'] ) ) ? '' : $_GET['datefrom'];?>" id="datefrom" class="date" />
                             <label for="datefrom" class="facet-search-link">To</label>
+                            <input type="date" name="facet-dateto" value="<?php echo ( empty( $_GET['dateto'] ) ) ? date('Y-m-d') : $_GET['dateto'];?>" id="dateto" class="date"  />
+                            
                     </ul>
-                    <a href="#" onclick="event.preventDefault(); searchlink('date')">Filter</a>
+                    <a href="#" id="datefilter" class="button" onclick="event.preventDefault(); searchlink('date')">Filter</a>
                 <?php endif; ?>
             <?php endif; ?>
 
