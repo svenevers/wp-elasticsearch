@@ -34,10 +34,14 @@ class Searcher
         $elasticaQueryString->setFields(array('title', 'content'));
 
         $elasticaFilterAnd = new Elastica_Filter_And();
+        $elasticaFilterBool = new Elastica_Filter_Bool();
 
         $tagTerm = $global_query['tags'];
         $authorTerm = $global_query['author'];
         $catTerm = $global_query['cats'];
+        $dateFrom = $global_query['datefrom'];
+        $dateTo = $global_query['dateto'];
+
         if (!empty($tagTerm)) {
             $tagTermArr = explode(",", $tagTerm);
             $filterTag = new Elastica_Filter_Terms();
@@ -59,11 +63,24 @@ class Searcher
             $elasticaFilterAnd->addFilter($filterCat);
         }
 
+        if (!empty($dateFrom) && !empty($dateTo)) {
+            $filterDate = new Elastica_Filter_Range('date', array(
+                    'from' => strftime('%F %T', strtotime($dateFrom)),
+                    'to' => strftime('%F %T', strtotime($dateTo))
+                ));  
+             // $dates = new Elastica_Filter_Terms();
+             // $dates->setTerms('date', array($dateFrom." -> ".$dateTo));
+             // $elasticaFilterAnd->addFilter($dates);
+             $elasticaFilterBool->addMust($filterDate);
+        }
+
+
         // Create the actual search object with some data.
         $elasticaQuery = new Elastica_Query();
         $elasticaQuery->setQuery($elasticaQueryString);
-        if (!empty($tagTerm) || !empty($authorTerm) || !empty($catTerm)) {
-            $elasticaQuery->setFilter($elasticaFilterAnd);
+        if (!empty($tagTerm) || !empty($authorTerm) || !empty($catTerm) || !empty($dateFrom) || !empty($dateTo)) {
+            // $elasticaQuery->setFilter($elasticaFilterAnd);
+            $elasticaQuery->setFilter($elasticaFilterBool);
         }
         if ($offset) {
             $elasticaQuery->setFrom($offset);
@@ -71,6 +88,7 @@ class Searcher
         if ($limit) {
             $elasticaQuery->setLimit($limit);
         }
+
 
         //Check facet fields
         if (!empty($facets)) {
@@ -90,6 +108,7 @@ class Searcher
         } else {
             $elasticaResultSet = $this->elastic_search_client->getIndex($indexName)->search($elasticaQuery);
         }
+
         return $elasticaResultSet;
     }
 
