@@ -777,7 +777,7 @@ class Wp_ElasticSearch
         if (!is_search()) {
             return $posts;
         }
-        if (!$this->search_successful) {
+        if (!$this->search_successful && !is_admin() ) {
             return array();
         }
         global $wp_query;
