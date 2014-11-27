@@ -555,6 +555,10 @@ class Wp_ElasticSearch
                 $this->delete_post($post_id);
             }
         } else {
+            
+            // Process shortcodes
+            $post->post_content = do_shortcode($post->post_content);
+            
             //tags
             $tags = get_the_tags($post->ID);
 
@@ -762,7 +766,9 @@ class Wp_ElasticSearch
                 unset($wp_query->query_vars['author']);
                 unset($wp_query->query_vars['title']);
                 unset($wp_query->query_vars['content']);
-                $wp_query->query_vars['s'] = str_replace("*", "", $wp_query->query_vars['s']);
+                //unset this parameter to prevent WordPress creating a search query (search was already done in Elasticsearch)
+				$wp_query->query_vars['elastic-string'] = str_replace("*", "", $wp_query->query_vars['s']);
+				$wp_query->query_vars['s'] = "";
                 $elasticaFacets = $search_results->getFacets();
                 $this->search_successful = true;
             } catch (Exception $e) {
@@ -781,6 +787,10 @@ class Wp_ElasticSearch
             return array();
         }
         global $wp_query;
+        
+        //Restore search string so it gets displayed in search page
+		$wp_query->query_vars['s'] = $wp_query->query_vars['elastic-string'];
+		
         $wp_query->max_num_pages = ceil($this->total_num_results / $this->per_page);
         $wp_query->found_posts = $this->total_num_results;
         return $posts;
